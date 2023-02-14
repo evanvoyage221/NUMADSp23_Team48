@@ -23,7 +23,7 @@ public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
     @NonNull
     @Override
     public CatFactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CatFactsViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_fact_view, parent, false));
+        return new CatFactsViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_fact_view, parent, false), context);
     }
 
     @Override
