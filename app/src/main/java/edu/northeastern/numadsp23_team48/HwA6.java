@@ -1,7 +1,6 @@
 package edu.northeastern.numadsp23_team48;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class HwA6 extends AppCompatActivity {
