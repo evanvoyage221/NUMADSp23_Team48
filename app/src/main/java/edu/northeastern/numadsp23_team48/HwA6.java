@@ -1,18 +1,23 @@
 package edu.northeastern.numadsp23_team48;
-
+import edu.northeastern.numadsp23_team48.model.CatFacts;
+import edu.northeastern.numadsp23_team48.client.FetchData;
+import edu.northeastern.numadsp23_team48.client.RetrofitClient;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
+import android.widget.Adapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
-import edu.northeastern.numadsp23_team48.client.FetchData;
-import edu.northeastern.numadsp23_team48.client.RetrofitClient;
-import edu.northeastern.numadsp23_team48.model.CatFacts;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +26,8 @@ public class HwA6 extends AppCompatActivity {
     private Button submit;
     private EditText editText;
     public static final String TAG = "A6 Activity";
+    private RecyclerView catFactsRecyclerView;
+    private ArrayList<String> facts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,7 @@ public class HwA6 extends AppCompatActivity {
                     public void onResponse(Call<CatFacts> call, Response<CatFacts> response) {
                         Log.e(TAG,"on response: code: " + response.code());
 
-                        ArrayList<String> facts = response.body().getData();
+                         facts = response.body().getData();
 
                         for (String fact:facts){
                             Log.e(TAG,"onResponse: fact: "+ fact);
@@ -56,5 +63,8 @@ public class HwA6 extends AppCompatActivity {
             }
         });
 
+        catFactsRecyclerView = findViewById(R.id.recyclerview);
+        catFactsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        catFactsRecyclerView.setAdapter(new CatFactsAdapter(facts, getApplicationContext()));
     }
 }
