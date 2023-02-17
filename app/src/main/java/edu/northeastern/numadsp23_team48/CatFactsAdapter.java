@@ -3,6 +3,7 @@ package edu.northeastern.numadsp23_team48;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -33,6 +34,10 @@ public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CatFactsViewHolder holder, int position) {
+//        Log.d("CatFactsAdapter", "onBindViewHolder: " + position);
+        if (position >= imageResources.length()) {
+            position = position % imageResources.length();
+        }
         Drawable imageDrawable = imageResources.getDrawable(position);
 
         holder.catFactsView.setText(listOfCatFacts.get(position));
@@ -42,7 +47,8 @@ public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
-        imageResources.recycle();
+//        recycle should be called in the onDestroy method of the activity
+//        imageResources.recycle();
     }
     @Override
     public int getItemCount() {
