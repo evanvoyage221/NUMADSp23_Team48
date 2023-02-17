@@ -1,6 +1,7 @@
 package edu.northeastern.numadsp23_team48;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -17,12 +18,10 @@ import edu.northeastern.numadsp23_team48.model.CatFacts;
 
 public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
     private ArrayList<String> listOfCatFacts;
-    private TypedArray imageResources;
-    // private int[] imageResources = {R.drawable.cat_icon_1, R.drawable.cat_icon_2, R.drawable.cat_icon_3, R.drawable.cat_icon_4, R.drawable.cat_icon_5, R.drawable.cat_icon_6, R.drawable.cat_icon_7, R.drawable.cat_icon_8, R.drawable.cat_icon_9, R.drawable.cat_icon_10, R.drawable.cat_icon_11, R.drawable.cat_icon_12, R.drawable.cat_icon_13, R.drawable.cat_icon_14, R.drawable.cat_icon_15, R.drawable.cat_icon_16, R.drawable.cat_icon_17, R.drawable.cat_icon_18};
+    private int[] imageResources = {R.drawable.cat_icon_1, R.drawable.cat_icon_2, R.drawable.cat_icon_3, R.drawable.cat_icon_4, R.drawable.cat_icon_5, R.drawable.cat_icon_6, R.drawable.cat_icon_7, R.drawable.cat_icon_8, R.drawable.cat_icon_9, R.drawable.cat_icon_10, R.drawable.cat_icon_11, R.drawable.cat_icon_12, R.drawable.cat_icon_13, R.drawable.cat_icon_14, R.drawable.cat_icon_15, R.drawable.cat_icon_16, R.drawable.cat_icon_17, R.drawable.cat_icon_18, R.drawable.cat_icon_19, R.drawable.cat_icon_20, R.drawable.cat_icon_21, R.drawable.cat_icon_22, R.drawable.cat_icon_23};
 
-    public CatFactsAdapter(ArrayList<String> listOfCatFacts, TypedArray imageResources) {
+    public CatFactsAdapter(ArrayList<String> listOfCatFacts) {
         this.listOfCatFacts = listOfCatFacts;
-        this.imageResources = imageResources;
     }
 
     @NonNull
@@ -33,17 +32,14 @@ public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CatFactsViewHolder holder, int position) {
-        Drawable imageDrawable = imageResources.getDrawable(position);
+        Random random = new Random();
+        int randomNumber = random.nextInt(imageResources.length);
+        int imageResource = imageResources[randomNumber];
 
         holder.catFactsView.setText(listOfCatFacts.get(position));
-        holder.imageView.setImageDrawable(imageDrawable);
+        holder.imageView.setImageResource(imageResource);
     }
 
-    @Override
-    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        imageResources.recycle();
-    }
     @Override
     public int getItemCount() {
         return listOfCatFacts.size();
