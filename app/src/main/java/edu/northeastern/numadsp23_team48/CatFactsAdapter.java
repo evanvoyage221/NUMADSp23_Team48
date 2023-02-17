@@ -1,9 +1,7 @@
 package edu.northeastern.numadsp23_team48;
 
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,10 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import edu.northeastern.numadsp23_team48.model.CatFacts;
 
 public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
     private final ArrayList<String> listOfCatFacts;

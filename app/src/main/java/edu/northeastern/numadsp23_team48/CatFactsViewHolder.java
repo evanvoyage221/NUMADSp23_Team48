@@ -1,6 +1,5 @@
 package edu.northeastern.numadsp23_team48;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
