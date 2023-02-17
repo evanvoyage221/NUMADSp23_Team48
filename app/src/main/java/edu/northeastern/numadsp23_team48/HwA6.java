@@ -1,7 +1,15 @@
 package edu.northeastern.numadsp23_team48;
-import edu.northeastern.numadsp23_team48.model.CatFacts;
-import edu.northeastern.numadsp23_team48.client.FetchData;
-import edu.northeastern.numadsp23_team48.client.RetrofitClient;
+
+import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -9,26 +17,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.MenuItem;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-
+import edu.northeastern.numadsp23_team48.client.FetchData;
+import edu.northeastern.numadsp23_team48.client.RetrofitClient;
+import edu.northeastern.numadsp23_team48.model.CatFacts;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HwA6 extends AppCompatActivity {
     private EditText editText;
+    private TypedArray imageResources;
     public static final String TAG = "A6 Activity";
     private RecyclerView catFactsRecyclerView;
     private ArrayList<String> factsList = new ArrayList<>();
@@ -56,6 +56,7 @@ public class HwA6 extends AppCompatActivity {
         editText = findViewById(R.id.text_inputNum);
         Button submit = findViewById(R.id.btn_submitNum);
         catFactsRecyclerView = findViewById(R.id.recyclerview);
+        imageResources = getResources().obtainTypedArray(R.array.image_resources);
 
         submit.setOnClickListener(view -> {
             Log.e(TAG, editText.getText().toString());

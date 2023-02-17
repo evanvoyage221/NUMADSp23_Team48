@@ -1,14 +1,12 @@
 package edu.northeastern.numadsp23_team48.client;
 
-import android.util.Log;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
     private static Retrofit retrofit;
-    private static String BASE_URL = "https://meowfacts.herokuapp.com";
+    private static final String BASE_URL = "https://meowfacts.herokuapp.com";
 
     public static Retrofit getRetrofitInstance(){
         if (retrofit == null) {

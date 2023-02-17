@@ -1,10 +1,7 @@
 package edu.northeastern.numadsp23_team48;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,17 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import edu.northeastern.numadsp23_team48.model.CatFacts;
 
 public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
-    private ArrayList<String> listOfCatFacts;
-    private int[] imageResources = {R.drawable.cat_icon_1, R.drawable.cat_icon_2, R.drawable.cat_icon_3, R.drawable.cat_icon_4, R.drawable.cat_icon_5, R.drawable.cat_icon_6, R.drawable.cat_icon_7, R.drawable.cat_icon_8, R.drawable.cat_icon_9, R.drawable.cat_icon_10, R.drawable.cat_icon_11, R.drawable.cat_icon_12, R.drawable.cat_icon_13, R.drawable.cat_icon_14, R.drawable.cat_icon_15, R.drawable.cat_icon_16, R.drawable.cat_icon_17, R.drawable.cat_icon_18, R.drawable.cat_icon_19, R.drawable.cat_icon_20, R.drawable.cat_icon_21, R.drawable.cat_icon_22, R.drawable.cat_icon_23};
+    private final ArrayList<String> listOfCatFacts;
+    private final TypedArray imageResources;
 
-    public CatFactsAdapter(ArrayList<String> listOfCatFacts) {
+    public CatFactsAdapter(ArrayList<String> listOfCatFacts, TypedArray imageResources) {
         this.listOfCatFacts = listOfCatFacts;
+        this.imageResources = imageResources;
     }
 
     @NonNull
@@ -40,7 +34,7 @@ public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
         Drawable imageDrawable = imageResources.getDrawable(position);
 
         holder.catFactsView.setText(listOfCatFacts.get(position));
-        holder.imageView.setImageResource(imageResource);
+        holder.imageView.setImageDrawable(imageDrawable);
     }
 
     @Override
