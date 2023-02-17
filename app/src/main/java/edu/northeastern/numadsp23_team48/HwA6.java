@@ -71,6 +71,18 @@ public class HwA6 extends AppCompatActivity {
         });
         catFactsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putStringArrayList("factsList", factsList);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        factsList = savedInstanceState.getStringArrayList("factsList");
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
