@@ -14,14 +14,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
