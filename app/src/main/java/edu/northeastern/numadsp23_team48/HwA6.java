@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,7 +29,6 @@ import retrofit2.Response;
 
 public class HwA6 extends AppCompatActivity {
     private EditText editText;
-    private TypedArray imageResources;
     public static final String TAG = "A6 Activity";
     private RecyclerView catFactsRecyclerView;
     private ArrayList<String> factsList = new ArrayList<>();
@@ -58,7 +56,6 @@ public class HwA6 extends AppCompatActivity {
         editText = findViewById(R.id.text_inputNum);
         Button submit = findViewById(R.id.btn_submitNum);
         catFactsRecyclerView = findViewById(R.id.recyclerview);
-        imageResources = getResources().obtainTypedArray(R.array.image_resources);
 
         submit.setOnClickListener(view -> {
             Log.e(TAG, editText.getText().toString());
