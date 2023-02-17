@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CatFactsViewHolder extends RecyclerView.ViewHolder {
     public ImageView imageView;
     public TextView catFactsView;
-    private Context context;
 
-    public CatFactsViewHolder(@NonNull View itemView, Context context) {
+
+    public CatFactsViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imageview);
         catFactsView = itemView.findViewById(R.id.fact);
-        this.context = context;
     }
 }

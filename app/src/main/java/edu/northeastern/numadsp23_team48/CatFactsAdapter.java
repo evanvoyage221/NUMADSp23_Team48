@@ -12,18 +12,18 @@ import java.util.List;
 import edu.northeastern.numadsp23_team48.model.CatFacts;
 
 public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
-    private final ArrayList<String> listOfCatFacts;
-    private final Context context;
+    private ArrayList<String> listOfCatFacts;
 
-    public CatFactsAdapter(ArrayList<String> listOfCatFacts, Context context) {
+
+    public CatFactsAdapter(ArrayList<String> listOfCatFacts) {
         this.listOfCatFacts = listOfCatFacts;
-        this.context = context;
+
     }
 
     @NonNull
     @Override
     public CatFactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CatFactsViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_fact_view, parent, false), context);
+        return new CatFactsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_fact_view, parent, false));
     }
 
     @Override
