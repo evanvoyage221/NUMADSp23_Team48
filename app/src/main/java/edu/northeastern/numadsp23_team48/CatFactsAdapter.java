@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
     private final ArrayList<String> listOfCatFacts;
+
+//    TypedArray's recycle should be called in the onDestroy method of the activity
     private final TypedArray imageResources;
 
     public CatFactsAdapter(ArrayList<String> listOfCatFacts, TypedArray imageResources) {
@@ -37,12 +39,6 @@ public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
         holder.imageView.setImageDrawable(imageDrawable);
     }
 
-    @Override
-    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-//        recycle should be called in the onDestroy method of the activity
-//        imageResources.recycle();
-    }
     @Override
     public int getItemCount() {
         return listOfCatFacts.size();
