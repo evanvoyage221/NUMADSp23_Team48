@@ -12,7 +12,6 @@ public class CatFactsViewHolder extends RecyclerView.ViewHolder {
     public ImageView imageView;
     public TextView catFactsView;
 
-
     public CatFactsViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imageview);
