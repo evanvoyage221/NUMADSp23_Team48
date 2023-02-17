@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class HwA6 extends AppCompatActivity {
     private EditText editText;
     public static final String TAG = "A6 Activity";
     private RecyclerView catFactsRecyclerView;
-    private ArrayList<String> facts;
+    private ArrayList<String> factsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +39,8 @@ public class HwA6 extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         editText = findViewById(R.id.text_inputNum);
         submit = findViewById(R.id.btn_submitNum);
-        facts = new ArrayList<>();
         catFactsRecyclerView = findViewById(R.id.recyclerview);
-        catFactsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        catFactsRecyclerView.setAdapter(new CatFactsAdapter(facts, this));
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,9 +51,12 @@ public class HwA6 extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CatFacts> call, Response<CatFacts> response) {
                         Log.e(TAG,"on response: code: " + response.code());
-                        facts = response.body().getData();
+                        factsList = response.body().getData();
+                        CatFactsAdapter newAdapter = new CatFactsAdapter(factsList);
+                        catFactsRecyclerView.setAdapter(newAdapter);
 
-                        for (String fact:facts){
+                        Log.e(TAG,"fact list size: " + factsList.size());
+                        for (String fact: factsList){
                             Log.e(TAG,"onResponse: fact: "+ fact);
                         }
                     }
@@ -67,6 +67,7 @@ public class HwA6 extends AppCompatActivity {
                 });
             }
         });
+        catFactsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
