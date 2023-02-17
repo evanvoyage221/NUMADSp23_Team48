@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="image_resources">
+        <item>@drawable/cat_icon_1</item>
+        <item>@drawable/cat_icon_2</item>
+        <item>@drawable/cat_icon_3</item>
+        <item>@drawable/cat_icon_4</item>
+        <item>@drawable/cat_icon_5</item>
+        <item>@drawable/cat_icon_6</item>
+        <item>@drawable/cat_icon_7</item>
+        <item>@drawable/cat_icon_8</item>
+        <item>@drawable/cat_icon_9</item>
+        <item>@drawable/cat_icon_10</item>
+        <item>@drawable/cat_icon_11</item>
+        <item>@drawable/cat_icon_12</item>
+        <item>@drawable/cat_icon_13</item>
+        <item>@drawable/cat_icon_14</item>
+        <item>@drawable/cat_icon_15</item>
+        <item>@drawable/cat_icon_16</item>
+        <item>@drawable/cat_icon_17</item>
+        <item>@drawable/cat_icon_18</item>
+    </array>
+</resources>

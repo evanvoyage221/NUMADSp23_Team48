@@ -9,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.util.Log;
 import android.view.View;
@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class HwA6 extends AppCompatActivity {
     private Button submit;
     private EditText editText;
+    private TypedArray imageResources;
     public static final String TAG = "A6 Activity";
     private RecyclerView catFactsRecyclerView;
     private ArrayList<String> factsList = new ArrayList<>();
@@ -40,6 +41,7 @@ public class HwA6 extends AppCompatActivity {
         editText = findViewById(R.id.text_inputNum);
         submit = findViewById(R.id.btn_submitNum);
         catFactsRecyclerView = findViewById(R.id.recyclerview);
+        imageResources = getResources().obtainTypedArray(R.array.image_resources);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +54,7 @@ public class HwA6 extends AppCompatActivity {
                     public void onResponse(Call<CatFacts> call, Response<CatFacts> response) {
                         Log.e(TAG,"on response: code: " + response.code());
                         factsList = response.body().getData();
-                        CatFactsAdapter newAdapter = new CatFactsAdapter(factsList);
+                        CatFactsAdapter newAdapter = new CatFactsAdapter(factsList, imageResources);
                         catFactsRecyclerView.setAdapter(newAdapter);
 
                         Log.e(TAG,"fact list size: " + factsList.size());
@@ -68,6 +70,18 @@ public class HwA6 extends AppCompatActivity {
             }
         });
         catFactsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putStringArrayList("factsList", factsList);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        factsList = savedInstanceState.getStringArrayList("factsList");
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
