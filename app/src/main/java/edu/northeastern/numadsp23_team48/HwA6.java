@@ -30,6 +30,7 @@ public class HwA6 extends AppCompatActivity {
     private EditText editText;
     public static final String TAG = "A6 Activity";
     private RecyclerView catFactsRecyclerView;
+    private CatFactsAdapter adapter;
     private ArrayList<String> facts;
 
     @Override
@@ -41,9 +42,11 @@ public class HwA6 extends AppCompatActivity {
         editText = findViewById(R.id.text_inputNum);
         submit = findViewById(R.id.btn_submitNum);
         facts = new ArrayList<>();
+        adapter = new CatFactsAdapter(facts);
         catFactsRecyclerView = findViewById(R.id.recyclerview);
+        catFactsRecyclerView.setAdapter(adapter);
         catFactsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        catFactsRecyclerView.setAdapter(new CatFactsAdapter(facts, this));
+        catFactsRecyclerView.setHasFixedSize(true);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,10 +58,15 @@ public class HwA6 extends AppCompatActivity {
                     public void onResponse(Call<CatFacts> call, Response<CatFacts> response) {
                         Log.e(TAG,"on response: code: " + response.code());
                         facts = response.body().getData();
-
+                        for (int i = 0; i < facts.size(); i++) {
+                            adapter.notifyItemInserted(i);
+                        }
+/*                        facts = response.body().getData();
+                        adapter.notifyItemInserted(0);
+                        adapter.notifyItemInserted(1);
                         for (String fact:facts){
                             Log.e(TAG,"onResponse: fact: "+ fact);
-                        }
+                        }*/
                     }
                     @Override
                     public void onFailure(Call<CatFacts> call, Throwable t) {
@@ -68,6 +76,8 @@ public class HwA6 extends AppCompatActivity {
             }
         });
     }
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
