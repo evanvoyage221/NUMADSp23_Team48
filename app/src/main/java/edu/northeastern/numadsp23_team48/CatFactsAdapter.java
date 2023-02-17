@@ -18,7 +18,7 @@ import edu.northeastern.numadsp23_team48.model.CatFacts;
 public class CatFactsAdapter extends RecyclerView.Adapter<CatFactsViewHolder> {
     private ArrayList<String> listOfCatFacts;
     private TypedArray imageResources;
-    //private int[] imageResources = {R.drawable.cat_icon_1, R.drawable.cat_icon_2, R.drawable.cat_icon_3, R.drawable.cat_icon_4, R.drawable.cat_icon_5, R.drawable.cat_icon_6, R.drawable.cat_icon_7, R.drawable.cat_icon_8, R.drawable.cat_icon_9, R.drawable.cat_icon_10, R.drawable.cat_icon_11, R.drawable.cat_icon_12, R.drawable.cat_icon_13, R.drawable.cat_icon_14, R.drawable.cat_icon_15, R.drawable.cat_icon_16, R.drawable.cat_icon_17, R.drawable.cat_icon_18};
+    // private int[] imageResources = {R.drawable.cat_icon_1, R.drawable.cat_icon_2, R.drawable.cat_icon_3, R.drawable.cat_icon_4, R.drawable.cat_icon_5, R.drawable.cat_icon_6, R.drawable.cat_icon_7, R.drawable.cat_icon_8, R.drawable.cat_icon_9, R.drawable.cat_icon_10, R.drawable.cat_icon_11, R.drawable.cat_icon_12, R.drawable.cat_icon_13, R.drawable.cat_icon_14, R.drawable.cat_icon_15, R.drawable.cat_icon_16, R.drawable.cat_icon_17, R.drawable.cat_icon_18};
 
     public CatFactsAdapter(ArrayList<String> listOfCatFacts, TypedArray imageResources) {
         this.listOfCatFacts = listOfCatFacts;
