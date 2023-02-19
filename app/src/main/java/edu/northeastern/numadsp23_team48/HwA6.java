@@ -4,6 +4,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,8 +60,20 @@ public class HwA6 extends AppCompatActivity {
         catFactsRecyclerView = findViewById(R.id.recyclerview);
         imageResources = getResources().obtainTypedArray(R.array.image_resources);
 
+//        corner case: input is not a number or empty
         submit.setOnClickListener(view -> {
-            Log.e(TAG, editText.getText().toString());
+            String inputText = editText.getText().toString();
+            // check if input is not a number or empty
+            if (!TextUtils.isDigitsOnly(inputText) || TextUtils.isEmpty(inputText)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Input must be a positive integer")
+                        .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                        .create()
+                        .show();
+                return;
+            }
+
+            Log.e(TAG, String.valueOf(Integer.parseInt(inputText)));
             ProgressBar progressBar = findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.VISIBLE); // show progress bar
 
