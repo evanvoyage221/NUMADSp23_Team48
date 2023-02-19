@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -65,14 +66,9 @@ public class HwA6 extends AppCompatActivity {
             String inputText = editText.getText().toString();
             // check if input is not a number or empty
             if (!TextUtils.isDigitsOnly(inputText) || TextUtils.isEmpty(inputText)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Input must be a positive integer")
-                        .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                        .create()
-                        .show();
+                Toast.makeText(this, "Input must be a positive integer", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             Log.e(TAG, String.valueOf(Integer.parseInt(inputText)));
             ProgressBar progressBar = findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.VISIBLE); // show progress bar
