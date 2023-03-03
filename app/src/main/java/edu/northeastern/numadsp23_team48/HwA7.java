@@ -47,6 +47,10 @@ public class HwA7 extends AppCompatActivity {
         });
     }
 
+    /***
+     *
+     * test method for getting info from db
+     */
     private void getUserFromDb(View view) {
         mDatabase.child("users").child(testUserName1).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -59,6 +63,11 @@ public class HwA7 extends AppCompatActivity {
             }
         });
     }
+
+    /***
+     *
+     * test method for writing info from db
+     */
 
     private void addUserToDb(View view) {
         User user = new User(testUserName1);
