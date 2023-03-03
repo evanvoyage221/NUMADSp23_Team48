@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnA6 = findViewById(R.id.btn_a6);
-        Button btnA7 = findViewById(R.id.btn_a7);
+        Button btnA8 = findViewById(R.id.btn_a7);
         Button btnGroup = findViewById(R.id.btn_group_project);
 
         btnA6.setOnClickListener(new View.OnClickListener() {
@@ -25,10 +25,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnA8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToA7Activity();
+            }
+        });
+
     }
 
     public void goToA6Activity(){
         Intent intent = new Intent(this, HwA6.class);
+        startActivity(intent);
+    }
+
+    public void goToA7Activity(){
+        Intent intent = new Intent(this, HwA7.class);
         startActivity(intent);
     }
 }
