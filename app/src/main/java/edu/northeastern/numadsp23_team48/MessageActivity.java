@@ -133,7 +133,7 @@ public class MessageActivity extends AppCompatActivity {
      * @param view current view.
      */
     public void sendButtonClicked(View view) {
-//        TODO: Add the message to the chat.
+//        TODO: Send the message to the other user.
     }
 
 

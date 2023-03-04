@@ -19,4 +19,12 @@ public class SentViewHolder extends RecyclerView.ViewHolder{
         this.count = itemView.findViewById(R.id.sent_sticker_count);
         this.sticker = itemView.findViewById(R.id.sent_sticker);
     }
+
+    public TextView getCount() {
+        return count;
+    }
+
+    public ImageView getSticker() {
+        return sticker;
+    }
 }
