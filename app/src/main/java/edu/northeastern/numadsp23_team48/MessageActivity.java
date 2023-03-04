@@ -60,7 +60,7 @@ public class MessageActivity extends AppCompatActivity {
 
         //get the text view in which the different usernames must be displayed.
         bundle = getIntent().getExtras();
-        TextView displayUserNameTV = (TextView) findViewById(R.id.displayUserName);
+        TextView displayUserNameTV = findViewById(R.id.displayUserName);
         displayUserNameTV.setText(bundle.getString("userName"));
 
         if (savedInstanceState == null) {
@@ -95,33 +95,6 @@ public class MessageActivity extends AppCompatActivity {
                 DividerItemDecoration.VERTICAL);
 
         messageRecyclerView.addItemDecoration(dividerItemDecoration);
-
-        // // Attach a listener to read the data at our messages reference
-        // databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-        //     @Override
-        //     public void onDataChange(DataSnapshot dataSnapshot) {
-        //         Iterable<DataSnapshot> snapshotIterator = dataSnapshot.child("chats").child(chatId).getChildren();
-        //         Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
-        //         while (iterator.hasNext()) {
-        //             DataSnapshot next = (DataSnapshot) iterator.next();
-        //
-        //             ChatMessage chatMessage = new ChatMessage((Long)next.child("imageID").getValue(), String.valueOf(next.child("timestamp").getValue()), String.valueOf(next.child("sender").getValue()));
-        //
-        //             chatMessageList.add(chatMessage);
-        //
-        //             //Notify the adapter about the newly added item.
-        //             if(messageRecyclerView != null && messageRecyclerView.getAdapter() != null)
-        //                 messageRecyclerView.getAdapter().notifyItemInserted(messageRecyclerView.getAdapter().getItemCount());
-        //
-        //
-        //         }
-        //     }
-        //
-        //     @Override
-        //     public void onCancelled(DatabaseError databaseError) {
-        //         System.out.println("The read failed: " + databaseError.getCode());
-        //     }
-        // });
 
 
         messages = databaseReference.child("chats").child(chatId);
@@ -175,8 +148,7 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("chatMessageList",
-                (ArrayList<? extends Parcelable>) chatMessageList);
+        outState.putParcelableArrayList("chatMessageList", chatMessageList);
     }
 
     @Override
@@ -184,7 +156,6 @@ public class MessageActivity extends AppCompatActivity {
         super.onRestoreInstanceState(state);
 
         // Retrieve list state and list/item positions
-        state.putParcelableArrayList("chatMessageList",
-                (ArrayList<? extends Parcelable>) chatMessageList);
+        state.putParcelableArrayList("chatMessageList", chatMessageList);
     }
 }

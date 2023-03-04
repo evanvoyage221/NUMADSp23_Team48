@@ -1,5 +1,6 @@
 package edu.northeastern.numadsp23_team48;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,6 +13,13 @@ import java.util.Objects;
  * Chat message object which represents a chat by the image ID, time stamp at which the message was sent and who sent it.
  */
 public class ChatMessage implements Parcelable {
+    private final long imageID;
+    private final String timestamp;
+    private final String sender;
+    private final String receiver;
+    private String readStatus;
+    DateFormat simpleDateFormat;
+    String sdf;
 
 
     /**
@@ -29,16 +37,6 @@ public class ChatMessage implements Parcelable {
         }
     };
 
-    private long imageID;
-    private String timestamp;
-    private String sender;
-    private String receiver;
-    private String readStatus;
-    DateFormat simpleDateFormat;
-    String sdf;
-
-
-
     public ChatMessage(long imageID, String timestamp, String sender, String receiver) {
         this.imageID = imageID;
         this.timestamp = timestamp;
@@ -46,6 +44,7 @@ public class ChatMessage implements Parcelable {
         this.receiver = receiver;
     }
 
+    @SuppressLint("SimpleDateFormat")
     public ChatMessage(int imageID, String sender, String receiver, String readStatus) {
         this.imageID = imageID;
         long millis = System.currentTimeMillis();
