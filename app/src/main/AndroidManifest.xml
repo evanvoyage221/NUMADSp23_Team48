@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMADSp23_team48"
         tools:targetApi="31">
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessageActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:exported="false" />
+        <activity
+            android:name=".AllUsersActivity"
+            android:exported="false" />
         <activity
             android:name=".HwA7"
             android:exported="false" />
