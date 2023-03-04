@@ -18,19 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Button btnA8 = findViewById(R.id.btn_a7);
         Button btnGroup = findViewById(R.id.btn_group_project);
 
-        btnA6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToA6Activity();
-            }
-        });
+        btnA6.setOnClickListener(view -> goToA6Activity());
 
-        btnA8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToA7Activity();
-            }
-        });
+        btnA8.setOnClickListener(view -> goToA7Activity());
 
     }
 

@@ -11,8 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Class that represent an user object which includes the user name, UID,
- * currentUserName and number of stickers sent.
+ * Class that represent an user object which includes the user name, UID, currentUserName and number of stickers sent.
  */
 public class User implements Parcelable {
 
@@ -28,38 +27,37 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
-
     private final String userName;
     private final String UID;
     private String currentUserName;
-    private Map<String, Long> stickerCountMap = new HashMap<>();
+    private Map<String, Long> stickerCountMap= new HashMap<>();
 
 
     /**
      * Constructs a user using the username.
-     *
      * @param userName name of the user.
      */
     public User(String userName) {
         this.userName = userName;
         this.UID = UUID.randomUUID().toString();
 //        put the default local sticker count map into the user object
-        stickerCountMap.put("2131165308", 0L);  // cat facts
-        stickerCountMap.put("2131165368", 0L);
-        stickerCountMap.put("2131165271", 0L);
-        stickerCountMap.put("2131165309", 0L);
-        stickerCountMap.put("2131165325", 0L);
-        stickerCountMap.put("2131165369", 0L);
+//        TODO: because I don't have access to firebase storage. I can't get the sticker count map from firebase.
+        stickerCountMap.put("1", 0L);  // cat icon
+        stickerCountMap.put("2", 0L);
+        stickerCountMap.put("3", 0L);
+        stickerCountMap.put("4", 0L);
+        stickerCountMap.put("5", 0L);
+        stickerCountMap.put("6", 0L);
     }
 
     /**
-     * Constructs a user object using the username, UID and currentUserName.
-     *
-     * @param UID             uid of the users.
-     * @param userName        username of the user.
+     * Constructs a user object.
+     * @param UID uid of the users.
+     * @param userName username of the user.
      * @param currentUserName username of the user logged in at the app.
      */
-    public User(String UID, String userName, String currentUserName, Map<String, Long> stickerCountMap) {
+
+    public User( String UID, String userName, String currentUserName, Map<String, Long> stickerCountMap) {
         this.userName = userName;
         this.UID = UID;
         this.currentUserName = currentUserName;
@@ -88,10 +86,9 @@ public class User implements Parcelable {
 
     /**
      * Construct website object using Parcel.
-     *
      * @param in Parcel object.
      */
-    public User(Parcel in) {
+    public User(Parcel in){
         this.userName = in.readString();
         this.UID = in.readString();
         this.currentUserName = in.readString();

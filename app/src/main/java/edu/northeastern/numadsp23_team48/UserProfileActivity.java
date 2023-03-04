@@ -1,9 +1,7 @@
 package edu.northeastern.numadsp23_team48;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,12 +17,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import edu.northeastern.numadsp23_team48.adapter.SentAdapter;
+import edu.northeastern.numadsp23_team48.model.SentItem;
+
 public class UserProfileActivity extends AppCompatActivity {
     RecyclerView rv;
     DatabaseReference dbr;
-//    SentAdapter adapter;
-//    ArrayList<SentItem> items;
-    String userkey;
+    SentAdapter adapter;
+    ArrayList<SentItem> items;
+    String userKey;
     String username;
     private static final String TAG = "";
 
@@ -36,7 +37,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         setTitle("YOUR PROFILE");
 
-        userkey = getIntent().getExtras().getString("userKey");
+        userKey = getIntent().getExtras().getString("userKey");
         username = getIntent().getStringExtra("username");
 
         TextView displayUser = findViewById(R.id.user_name_profile);
@@ -45,31 +46,30 @@ public class UserProfileActivity extends AppCompatActivity {
 
         rv = findViewById(R.id.sent_items);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        items = new ArrayList<>();
-//        adapter = new SentAdapter(UserProfileActivity.this, items);
-//        rv.setAdapter(adapter);
+        items = new ArrayList<>();
+        adapter = new SentAdapter(UserProfileActivity.this, items);
+        rv.setAdapter(adapter);
 
         dbr = FirebaseDatabase.getInstance().getReference("users");
 
         dbr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DataSnapshot stickerCount = snapshot.child(userkey).child("stickerCountMap");
+                DataSnapshot stickerCount = snapshot.child(userKey).child("stickerCountMap");
 
                 for (DataSnapshot ds : stickerCount.getChildren()) {
                     String image = ds.getKey();
                     String count = String.valueOf(ds.getValue(Long.class));
-//                    SentItem item = new SentItem(image, count);
-//                    items.add(item);
+                    SentItem item = new SentItem(image, count);
+                    items.add(item);
                 }
 
-//                adapter.notifyDataSetChanged();
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

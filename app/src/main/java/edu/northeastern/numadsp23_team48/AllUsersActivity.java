@@ -98,7 +98,7 @@ public class AllUsersActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         //Initialize a constraint layout to display the snack bar.
-        constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
+        constraintLayout = findViewById(R.id.constraintLayout);
 
         if (savedInstanceState == null) {
             // Attach a listener to read the data at our posts reference
@@ -109,14 +109,14 @@ public class AllUsersActivity extends AppCompatActivity {
                     for (DataSnapshot next : snapshotIterator) {
                         //add users other than current user.
                         if (!currentUserName.equals(next.child("userName").getValue())) {
-
+//                            TODO: the path is the image id in firebase storage. Not set yet because I don't have access to firebase storage.
                             Map<String, Long> stickerMap = new HashMap<>();
-                            stickerMap.put(next.child("stickerCountMap").child("2131165308").getKey(), (Long) next.child("stickerCountMap").child("2131165308").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("2131165368").getKey(), (Long) next.child("stickerCountMap").child("2131165368").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("2131165271").getKey(), (Long) next.child("stickerCountMap").child("2131165271").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("2131165309").getKey(), (Long) next.child("stickerCountMap").child("2131165309").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("2131165325").getKey(), (Long) next.child("stickerCountMap").child("2131165325").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("2131165369").getKey(), (Long) next.child("stickerCountMap").child("2131165369").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("1").getKey(), (Long) next.child("stickerCountMap").child("1").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("2").getKey(), (Long) next.child("stickerCountMap").child("2").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("3").getKey(), (Long) next.child("stickerCountMap").child("3").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("4").getKey(), (Long) next.child("stickerCountMap").child("4").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("5").getKey(), (Long) next.child("stickerCountMap").child("5").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("6").getKey(), (Long) next.child("stickerCountMap").child("6").getValue());
 
                             User user = new User(Objects.requireNonNull(next.child("uid").getValue()).toString(), Objects.requireNonNull(next.child("userName").getValue()).toString(), currentUserName, stickerMap);
                             usersList.add(user);
@@ -143,23 +143,18 @@ public class AllUsersActivity extends AppCompatActivity {
                                 @Override
                                 public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                                     sendNotif(snapshot);
-
-
                                 }
 
                                 @Override
                                 public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
                                 }
 
                                 @Override
                                 public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
                                 }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-
                                 }
                             });
                         }
@@ -197,6 +192,7 @@ public class AllUsersActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void sendNotification(int image_id, String sender) {
+//        TODO: the image id is not set to the firebase yet. It's random for now.
         NotificationChannel channel =
                 new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManager manager = getSystemService(NotificationManager.class);
@@ -205,22 +201,22 @@ public class AllUsersActivity extends AppCompatActivity {
         Bitmap myBitmap;
 
         switch (image_id) {
-            case 2131165308:
+            case 1:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_1);
                 break;
-            case 2131165368:
+            case 2:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_2);
                 break;
-            case 2131165271:
+            case 3:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_3);
                 break;
-            case 2131165309:
+            case 4:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_4);
                 break;
-            case 2131165325:
+            case 5:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_5);
                 break;
-            case 2131165369:
+            case 6:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_6);
                 break;
             default:
