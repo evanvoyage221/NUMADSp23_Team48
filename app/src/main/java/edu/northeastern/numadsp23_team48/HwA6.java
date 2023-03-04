@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import edu.northeastern.numadsp23_team48.adapter.CatFactsAdapter;
 import edu.northeastern.numadsp23_team48.client.FetchData;
 import edu.northeastern.numadsp23_team48.client.RetrofitClient;
 import edu.northeastern.numadsp23_team48.model.CatFacts;

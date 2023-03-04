@@ -6,27 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".HwA7">
 
-    <Button
-        android:id="@+id/btn_getInfo"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GetDB_test"
-        app:layout_constraintBottom_toTopOf="@+id/btn_setInfo"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/create_new_user_login_as_existing_user"
+        android:textIsSelectable="false"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        android:textColor="@color/white"
+        android:background="@drawable/login_text"
+        app:layout_constraintBottom_toTopOf="@id/editTextUserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_setInfo"
+    <EditText
+        android:id="@+id/editTextUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SETDB_test"
+        android:autofillHints="@string/username"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        app:layout_constraintBottom_toTopOf="@id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="openLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_getInfo"
-        app:layout_constraintVertical_bias="0.5" />
+        android:textColor="@color/white"
+        android:backgroundTint="@android:color/holo_purple"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserName"
+        tools:ignore="OnClick" />
+
+<!--    only for testing   -->
+<!--    <Button-->
+<!--        android:id="@+id/btn_getInfo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="GetDB_test"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btn_setInfo"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.5" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_setInfo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="SETDB_test"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btn_getInfo"-->
+<!--        app:layout_constraintVertical_bias="0.5" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
