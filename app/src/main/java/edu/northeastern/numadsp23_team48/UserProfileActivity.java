@@ -1,7 +1,9 @@
 package edu.northeastern.numadsp23_team48;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -72,5 +74,13 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    public void openAbout(View view){
+        int id = view.getId();
+        if (id == R.id.About){
+            Intent intent = new Intent(UserProfileActivity.this, AboutAppActivity.class);
+            startActivity(intent);
+        }
     }
 }

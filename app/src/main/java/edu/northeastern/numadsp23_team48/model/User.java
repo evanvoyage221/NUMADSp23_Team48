@@ -41,13 +41,12 @@ public class User implements Parcelable {
         this.userName = userName;
         this.UID = UUID.randomUUID().toString();
 //        put the default local sticker count map into the user object
-//        TODO: because I don't have access to firebase storage. I can't get the sticker count map from firebase.
-        stickerCountMap.put("1", 0L);  // cat icon
-        stickerCountMap.put("2", 0L);
-        stickerCountMap.put("3", 0L);
-        stickerCountMap.put("4", 0L);
-        stickerCountMap.put("5", 0L);
-        stickerCountMap.put("6", 0L);
+        stickerCountMap.put("2131165271", 0L);
+        stickerCountMap.put("2131165308", 0L);
+        stickerCountMap.put("2131165309", 0L);
+        stickerCountMap.put("2131165325", 0L);
+        stickerCountMap.put("2131165368", 0L);
+        stickerCountMap.put("2131165369", 0L);
     }
 
     /**

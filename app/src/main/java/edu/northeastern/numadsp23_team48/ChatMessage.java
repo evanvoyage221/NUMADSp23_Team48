@@ -13,6 +13,7 @@ import java.util.Objects;
  * Chat message object which represents a chat by the image ID, time stamp at which the message was sent and who sent it.
  */
 public class ChatMessage implements Parcelable {
+
     private final long imageID;
     private final String timestamp;
     private final String sender;
