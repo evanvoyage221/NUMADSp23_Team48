@@ -202,7 +202,7 @@ public class MessageActivity extends AppCompatActivity {
      * @param view current view.
      */
     public void sendButtonClicked(View view) {
-
+    
         if(chosenImageId == 0){
             Toast.makeText(MessageActivity.this, "Please choose a sticker", Toast.LENGTH_SHORT).show();
             return;
