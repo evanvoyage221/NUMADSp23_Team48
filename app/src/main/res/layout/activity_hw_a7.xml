@@ -9,11 +9,12 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/create_new_user_login_as_existing_user"
+        android:gravity="center"
+        android:text="Register &amp; Login"
         android:textIsSelectable="false"
         android:textAlignment="center"
         android:textSize="35sp"
@@ -28,7 +29,7 @@
     <EditText
         android:id="@+id/editTextUserName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:autofillHints="@string/username"
         android:hint="@string/username"
         android:inputType="textPersonName"

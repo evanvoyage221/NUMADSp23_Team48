@@ -3,9 +3,6 @@ package edu.northeastern.numadsp23_team48.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -30,34 +27,35 @@ public class User implements Parcelable {
     private final String userName;
     private final String UID;
     private String currentUserName;
-    private Map<String, Long> stickerCountMap= new HashMap<>();
+    private Map<String, Long> stickerCountMap = new HashMap<>();
 
 
     /**
      * Constructs a user using the username.
+     *
      * @param userName name of the user.
      */
     public User(String userName) {
         this.userName = userName;
         this.UID = UUID.randomUUID().toString();
 //        put the default local sticker count map into the user object
-//        TODO: because I don't have access to firebase storage. I can't get the sticker count map from firebase.
-        stickerCountMap.put("1", 0L);  // cat icon
-        stickerCountMap.put("2", 0L);
-        stickerCountMap.put("3", 0L);
-        stickerCountMap.put("4", 0L);
-        stickerCountMap.put("5", 0L);
-        stickerCountMap.put("6", 0L);
+        stickerCountMap.put("2131165271", 0L);
+        stickerCountMap.put("2131165308", 0L);
+        stickerCountMap.put("2131165309", 0L);
+        stickerCountMap.put("2131165325", 0L);
+        stickerCountMap.put("2131165368", 0L);
+        stickerCountMap.put("2131165369", 0L);
     }
 
     /**
      * Constructs a user object.
-     * @param UID uid of the users.
-     * @param userName username of the user.
+     *
+     * @param UID             uid of the users.
+     * @param userName        username of the user.
      * @param currentUserName username of the user logged in at the app.
      */
 
-    public User( String UID, String userName, String currentUserName, Map<String, Long> stickerCountMap) {
+    public User(String UID, String userName, String currentUserName, Map<String, Long> stickerCountMap) {
         this.userName = userName;
         this.UID = UID;
         this.currentUserName = currentUserName;

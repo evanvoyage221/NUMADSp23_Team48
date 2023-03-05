@@ -68,36 +68,35 @@ public class AllUsersActivity extends AppCompatActivity {
         userKey = getIntent().getExtras().getString("userKey");
         currentUserName = getIntent().getExtras().getString("currentUserName");
 
-        //Instantiate the array list of websites or get from the bundle.
+        // Instantiate the array list of websites or get from the bundle.
         if (savedInstanceState == null) {
             usersList = new ArrayList<>();
         } else {
             usersList = savedInstanceState.getParcelableArrayList("usersList");
         }
 
-        // below line is used to get the
-        // instance of our Firebase database.
+        // below line is used to get the instance of our Firebase database.
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         // below line is used to get reference for our database.
         databaseReference = firebaseDatabase.getReference("");
 
-        //Link to recycle view.
+        // Link to recycle view.
         recyclerView = findViewById(R.id.user_recycler_view);
 
-        //Set the layout manager for the recycle view.
+        // Set the layout manager for the recycle view.
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Set the custom adapter to the recycle view.
+        // Set the custom adapter to the recycle view.
         recyclerView.setAdapter(new UserAdapter(usersList, this));
 
-        //Decoration to add line after each item in the view.
+        // Decoration to add line after each item in the view.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL);
 
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        //Initialize a constraint layout to display the snack bar.
+        // Initialize a constraint layout to display the snack bar.
         constraintLayout = findViewById(R.id.constraintLayout);
 
         if (savedInstanceState == null) {
@@ -107,16 +106,15 @@ public class AllUsersActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot> snapshotIterator = dataSnapshot.child("users").getChildren();
                     for (DataSnapshot next : snapshotIterator) {
-                        //add users other than current user.
+                        // add users other than current user.
                         if (!currentUserName.equals(next.child("userName").getValue())) {
-//                            TODO: the path is the image id in firebase storage. Not set yet because I don't have access to firebase storage.
                             Map<String, Long> stickerMap = new HashMap<>();
-                            stickerMap.put(next.child("stickerCountMap").child("1").getKey(), (Long) next.child("stickerCountMap").child("1").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("2").getKey(), (Long) next.child("stickerCountMap").child("2").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("3").getKey(), (Long) next.child("stickerCountMap").child("3").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("4").getKey(), (Long) next.child("stickerCountMap").child("4").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("5").getKey(), (Long) next.child("stickerCountMap").child("5").getValue());
-                            stickerMap.put(next.child("stickerCountMap").child("6").getKey(), (Long) next.child("stickerCountMap").child("6").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("2131165271").getKey(), (Long) next.child("stickerCountMap").child("2131165271").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("2131165308").getKey(), (Long) next.child("stickerCountMap").child("2131165308").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("2131165309").getKey(), (Long) next.child("stickerCountMap").child("2131165309").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("2131165325").getKey(), (Long) next.child("stickerCountMap").child("2131165325").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("2131165368").getKey(), (Long) next.child("stickerCountMap").child("2131165368").getValue());
+                            stickerMap.put(next.child("stickerCountMap").child("2131165369").getKey(), (Long) next.child("stickerCountMap").child("2131165369").getValue());
 
                             User user = new User(Objects.requireNonNull(next.child("uid").getValue()).toString(), Objects.requireNonNull(next.child("userName").getValue()).toString(), currentUserName, stickerMap);
                             usersList.add(user);
@@ -182,8 +180,12 @@ public class AllUsersActivity extends AppCompatActivity {
             assert currentStatus != null;
             if (currentStatus.equalsIgnoreCase("unread")) {
                 String sender = snapshot.child("sender").getValue(String.class);
-                int image_id = snapshot.child("imageID").getValue(int.class);
-                sendNotification(image_id, sender);
+                try {
+                    int image_id = snapshot.child("imageID").getValue(int.class);
+                    sendNotification(image_id, sender);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
                 assert key != null;
                 messages.child(key).child("readStatus").setValue("read");
             }
@@ -192,31 +194,28 @@ public class AllUsersActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void sendNotification(int image_id, String sender) {
-//        TODO: the image id is not set to the firebase yet. It's random for now.
         NotificationChannel channel =
                 new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(channel);
-
         Bitmap myBitmap;
-
         switch (image_id) {
-            case 1:
+            case 2131165271:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_1);
                 break;
-            case 2:
+            case 2131165308:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_2);
                 break;
-            case 3:
+            case 2131165309:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_3);
                 break;
-            case 4:
+            case 2131165325:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_4);
                 break;
-            case 5:
+            case 2131165368:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_5);
                 break;
-            case 6:
+            case 2131165369:
                 myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat_icon_6);
                 break;
             default:
