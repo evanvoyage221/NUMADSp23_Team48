@@ -367,7 +367,7 @@ public class MessageActivity extends AppCompatActivity {
 
         // Build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "chat_notification_channel")
-                .setSmallIcon(R.drawable.cat_icon_17)
+                .setSmallIcon(R.mipmap.ic_launcher_team48_round)
                 .setContentTitle(sender)
                 .setContentText("New message received")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
