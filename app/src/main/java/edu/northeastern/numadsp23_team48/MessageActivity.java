@@ -1,9 +1,13 @@
 package edu.northeastern.numadsp23_team48;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +33,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Objects;
+
+import edu.northeastern.numadsp23_team48.adapter.MessageAdapter;
+import edu.northeastern.numadsp23_team48.model.ChatMessage;
 
 // Class for the chat activity. This class is responsible for displaying the chat between two users.
 // It also allows the user to send stickers to the other user.
@@ -118,11 +127,15 @@ public class MessageActivity extends AppCompatActivity {
         messages.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // TODO: Add the new message to the chat.
+                ChatMessage message = snapshot.getValue(ChatMessage.class);
+                int index = chatMessageList.indexOf(message);
+                chatMessageList.set(index, message);
+                adapter.notifyItemChanged(index);
             }
 
             @Override
@@ -170,7 +183,7 @@ public class MessageActivity extends AppCompatActivity {
         imageView1.setId(2131165271);
         sticker.addView(view1);
 
-        // setting on click listeners, change background color on click
+        // setting onclick listeners, change background color on click
         imageView1.setOnClickListener(view -> {
             imageView1.setBackgroundColor(Color.rgb(218, 246, 169));
             imageView2.setBackgroundColor(0);
@@ -182,10 +195,80 @@ public class MessageActivity extends AppCompatActivity {
             chosenImageId = view.getId();
         });
 
-        sticker.addView(view1);
+        // adding second sticker
+        View view2 =inflater.inflate(R.layout.sticker, sticker, false);
+        imageView2 = view2.findViewById(R.id.stickerImageView);
+        imageView2.setImageResource(R.drawable.cat_icon_2);
+        imageView2.setId(2131165272);
+        sticker.addView(view2);
 
+        imageView2.setOnClickListener(view -> {
+            imageView2.setBackgroundColor(Color.rgb(218, 246, 169));
+            imageView1.setBackgroundColor(0);
+            imageView3.setBackgroundColor(0);
+            imageView4.setBackgroundColor(0);
+            imageView5.setBackgroundColor(0);
+            imageView6.setBackgroundColor(0);
 
-//        TODO: Add the other 5 stickers.
+            chosenImageId = view.getId();
+        });
+
+        // adding third sticker
+        View view3 = inflater.inflate(R.layout.sticker, sticker, false);
+        imageView3 = view3.findViewById(R.id.stickerImageView);
+        imageView3.setImageResource(R.drawable.cat_icon_3);
+        imageView3.setId(2131165273);
+        sticker.addView(view3);
+
+        // setting onclick listeners, change background color on click
+        imageView3.setOnClickListener(view -> {
+            imageView3.setBackgroundColor(Color.rgb(218, 246, 169));
+            imageView1.setBackgroundColor(0);
+            imageView2.setBackgroundColor(0);
+            imageView4.setBackgroundColor(0);
+            imageView5.setBackgroundColor(0);
+            imageView6.setBackgroundColor(0);
+
+            chosenImageId = view.getId();
+        });
+
+        //adding the fourth sticker
+        View view4 = inflater.inflate(R.layout.sticker, sticker, false);
+        imageView4 = view4.findViewById(R.id.stickerImageView);
+        imageView4.setImageResource(R.drawable.cat_icon_4);
+        imageView4.setId(2131165274);
+        sticker.addView(view4);
+
+        // setting onclick listeners, change background color on click
+        imageView4.setOnClickListener(view -> {
+            imageView4.setBackgroundColor(Color.rgb(218, 246, 169));
+            imageView1.setBackgroundColor(0);
+            imageView2.setBackgroundColor(0);
+            imageView3.setBackgroundColor(0);
+            imageView5.setBackgroundColor(0);
+            imageView6.setBackgroundColor(0);
+
+            chosenImageId = view.getId();
+        });
+
+        //adding the fifth sticker
+        View view5 = inflater.inflate(R.layout.sticker, sticker, false);
+        imageView5 = view4.findViewById(R.id.stickerImageView);
+        imageView5.setImageResource(R.drawable.cat_icon_5);
+        imageView5.setId(2131165275);
+        sticker.addView(view5);
+
+        // setting onclick listeners, change background color on click
+        imageView5.setOnClickListener(view -> {
+            imageView5.setBackgroundColor(Color.rgb(218, 246, 169));
+            imageView1.setBackgroundColor(0);
+            imageView2.setBackgroundColor(0);
+            imageView3.setBackgroundColor(0);
+            imageView4.setBackgroundColor(0);
+            imageView6.setBackgroundColor(0);
+
+            chosenImageId = view.getId();
+        });
     }
 
     /**
@@ -266,8 +349,34 @@ public class MessageActivity extends AppCompatActivity {
      * @param image  the image ID of the sticker.
      * @param sender the name of the user who sent the sticker.
      */
+    @SuppressLint("MissingPermission")
     private void sendNotification(int image, String sender) {
-//        TODO: Send the notification to the other user.
+        // Create a notification channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Chat Notification";
+            String description = "New message received";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("chat_notification_channel", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // Set the notification image based on the image ID passed to it
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), chosenImageId);
+
+        // Build the notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "chat_notification_channel")
+                .setSmallIcon(R.mipmap.ic_launcher_team48_round)
+                .setContentTitle(sender)
+                .setContentText("New message received")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setLargeIcon(bitmap)
+                .setAutoCancel(true);
+
+        // Show the notification
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(1, builder.build());
     }
 
     /**
@@ -296,8 +405,38 @@ public class MessageActivity extends AppCompatActivity {
      *
      * @param snapshot the snapshot of the database.
      */
+    @SuppressLint("NotifyDataSetChanged")
     private void displayChatSendNotif(DataSnapshot snapshot) {
-//        TODO: Display the chat and send the notification.
+        // Extract sender's name from the snapshot
+        String sender = snapshot.child("sender").getValue(String.class);
+
+        // Create a new ChatMessage object using information from the snapshot
+        ChatMessage chatMessage = snapshot.getValue(ChatMessage.class);
+
+        // Check if chatMessageList already contains the newly created ChatMessage
+        if (!chatMessageList.contains(chatMessage)) {
+            // Add ChatMessage to list
+            chatMessageList.add(chatMessage);
+            // Update messageRecyclerView accordingly
+            MessageAdapter.notifyDataSetChanged();
+        }
+        // Extract the imageID, sender, and receiver from the ChatMessage,
+        // as well as the unique key of the chat message from the snapshot.
+        int image = (int) chatMessage.getImageID();
+        String receiver = chatMessage.getReceiver();
+        String key = snapshot.getKey();
+        // Extract the current user's name and the readStatus of the chat message from the snapshot.
+        String currentUser = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        boolean readStatus = snapshot.child("readStatus").getValue(Boolean.class);
+
+        // If the receiver of the chat message is the current user and the readStatus is unread,
+        // display a chat send notification with the appropriate image and sender.
+        if (receiver.equals(currentUser) && !readStatus) {
+            sendNotification(image, sender);
+
+        // Update the readStatus of the chat message to read in the Firebase Realtime Database
+        FirebaseDatabase.getInstance().getReference().child("chat").child(key).child("readStatus").setValue(true);
+        }
     }
 
     @Override

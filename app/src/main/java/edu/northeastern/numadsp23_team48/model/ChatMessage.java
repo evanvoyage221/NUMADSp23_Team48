@@ -1,4 +1,4 @@
-package edu.northeastern.numadsp23_team48;
+package edu.northeastern.numadsp23_team48.model;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;
