@@ -3,9 +3,6 @@ package edu.northeastern.numadsp23_team48.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -30,11 +27,12 @@ public class User implements Parcelable {
     private final String userName;
     private final String UID;
     private String currentUserName;
-    private Map<String, Long> stickerCountMap= new HashMap<>();
+    private Map<String, Long> stickerCountMap = new HashMap<>();
 
 
     /**
      * Constructs a user using the username.
+     *
      * @param userName name of the user.
      */
     public User(String userName) {
@@ -51,12 +49,13 @@ public class User implements Parcelable {
 
     /**
      * Constructs a user object.
-     * @param UID uid of the users.
-     * @param userName username of the user.
+     *
+     * @param UID             uid of the users.
+     * @param userName        username of the user.
      * @param currentUserName username of the user logged in at the app.
      */
 
-    public User( String UID, String userName, String currentUserName, Map<String, Long> stickerCountMap) {
+    public User(String UID, String userName, String currentUserName, Map<String, Long> stickerCountMap) {
         this.userName = userName;
         this.UID = UID;
         this.currentUserName = currentUserName;
