@@ -8,12 +8,16 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
@@ -55,7 +59,7 @@ public class AllUsersActivity extends AppCompatActivity {
     String userKey;
     String currentUserName;
     String userName;
-
+    private static final String channelId = "NUMAD_channel_id";
     private static final int NOTIFICATION_UNIQUE_ID = 13;
     private static final int notigen = 1;
 
@@ -63,7 +67,12 @@ public class AllUsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createNotificationChannel();
         setContentView(R.layout.activity_all_users);
+
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         userKey = getIntent().getExtras().getString("userKey");
         currentUserName = getIntent().getExtras().getString("currentUserName");
@@ -191,13 +200,22 @@ public class AllUsersActivity extends AppCompatActivity {
             }
         }
     }
+    public void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Sticker_notify";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel =
+                    new NotificationChannel(channelId, name, importance);
+            channel.enableLights(true);
+            channel.setLightColor(Color.GREEN);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+    }
 
     @SuppressLint("MissingPermission")
     private void sendNotification(int image_id, String sender) {
-        NotificationChannel channel =
-                new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
-        NotificationManager manager = getSystemService(NotificationManager.class);
-        manager.createNotificationChannel(channel);
         Bitmap myBitmap;
         switch (image_id) {
             case 2131165271:
@@ -233,8 +251,9 @@ public class AllUsersActivity extends AppCompatActivity {
                 resultingIntent,
                 PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
-                .setContentTitle("MRP Sticker Notified!")
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setContentTitle("You received a sticker!")
                 .setSmallIcon(R.mipmap.ic_launcher_team48_round)
                 .setContentText(sender + " Sent You:")
                 .setLargeIcon(myBitmap)
@@ -242,9 +261,9 @@ public class AllUsersActivity extends AppCompatActivity {
                         .bigPicture(myBitmap)
                         .bigLargeIcon(null))
                 .setAutoCancel(true);
-        //.setContentIntent(pendingIntent);
+                // .setContentIntent(pendingIntent);
 
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AllUsersActivity.this);
         managerCompat.notify(NOTIFICATION_UNIQUE_ID + notigen, builder.build());
     }
 
@@ -253,6 +272,15 @@ public class AllUsersActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("usersList",
                 (ArrayList<? extends Parcelable>) usersList);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void openProfile(View view) {
