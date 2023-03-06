@@ -1,14 +1,19 @@
 package edu.northeastern.numadsp23_team48;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -52,6 +58,8 @@ public class MessageActivity extends AppCompatActivity {
 
     // sticker chosen by the user to send.
     public static int chosenImageId = 0;
+    private static final String channelId = "NUMAD_channel_id";
+    private static final int NOTIFICATION_UNIQUE_ID = 13;
 
     // bundle with data from previous activity.
     Bundle bundle = null;
@@ -77,6 +85,9 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // instance of the Firebase database.
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -359,7 +370,6 @@ public class MessageActivity extends AppCompatActivity {
         Toast.makeText(MessageActivity.this, "Sticker sent", Toast.LENGTH_SHORT).show();
     }
 
-
     /**
      * This function sendNotification should create a notification channel and sets
      * the notification image based on the image ID passed to it.
@@ -369,8 +379,10 @@ public class MessageActivity extends AppCompatActivity {
      */
     @SuppressLint("MissingPermission")
     private void sendNotification(int image, String sender) {
+        CharSequence name = "Sticker_notify";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel =
-                new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
+                new NotificationChannel(channelId, name, importance);
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(channel);
 
@@ -466,6 +478,15 @@ public class MessageActivity extends AppCompatActivity {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("chatMessageList", chatMessageList);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
