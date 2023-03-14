@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
         btnA8.setOnClickListener(view -> goToA7Activity());
 
-        btnGroup.setOnClickListener(view -> goToGroupActivity());
+        // btnGroup.setOnClickListener(view -> goToGroupActivity());
+
+        btnGroup.setOnClickListener(view -> goToGroupProjectActivity());
     }
 
     public void goToA6Activity(){
@@ -36,9 +38,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HwA7.class);
         startActivity(intent);
     }
+    
+    // public void goToGroupActivity(){
+        // Intent intent = new Intent(this, LoginActivity.class);
+        // startActivity(intent);
+    // }
 
-    public void goToGroupActivity(){
-        Intent intent = new Intent(this, LoginActivity.class);
+    public void goToGroupProjectActivity(){
+        Intent intent = new Intent(this, GroupProjectActivity.class);
+
         startActivity(intent);
     }
 }
