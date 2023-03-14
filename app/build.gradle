@@ -48,8 +48,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database:20.1.0'
 
-    // import the firebase Authentication
-    implementation 'com.google.firebase:firebase-auth:19.3.2'
-    implementation 'com.google.android.gms:play-services-auth:19.2.0'
-
 }

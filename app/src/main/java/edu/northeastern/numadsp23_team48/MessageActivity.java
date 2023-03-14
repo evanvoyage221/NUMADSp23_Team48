@@ -31,7 +31,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -459,7 +458,6 @@ public class MessageActivity extends AppCompatActivity {
                 int image = (int) chatMessage.getImageID();
                 String receive = chatMessage.getReceiver();
                 String key = snapshot.getKey();
-
 
                 String current = bundle.getString("currentUserName");
                 String currentStatus = snapshot.child("readStatus").getValue(String.class);

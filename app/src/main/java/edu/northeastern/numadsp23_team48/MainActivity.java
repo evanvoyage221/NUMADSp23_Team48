@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnA8.setOnClickListener(view -> goToA7Activity());
 
+        btnGroup.setOnClickListener(view -> goToGroupProjectActivity());
+
     }
 
     public void goToA6Activity(){
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToA7Activity(){
         Intent intent = new Intent(this, HwA7.class);
+        startActivity(intent);
+    }
+
+    public void goToGroupProjectActivity(){
+        Intent intent = new Intent(this, GroupProjectActivity.class);
         startActivity(intent);
     }
 }
