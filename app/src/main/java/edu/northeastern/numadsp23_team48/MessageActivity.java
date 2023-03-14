@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -85,9 +84,6 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // instance of the Firebase database.
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -323,12 +319,7 @@ public class MessageActivity extends AppCompatActivity {
         // create a chat message object.
         ChatMessage chatMessage = new ChatMessage(chosenImageId, bundle.getString("currentUserName"), bundle.getString("userName"), "unread");
 
-        databaseReference.child("chats").child(chatId).push().setValue(chatMessage).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MessageActivity.this, "Unable to send sticker. Please try again later", Toast.LENGTH_SHORT).show();
-            }
-        });
+        databaseReference.child("chats").child(chatId).push().setValue(chatMessage).addOnFailureListener(e -> Toast.makeText(MessageActivity.this, "Unable to send sticker. Please try again later", Toast.LENGTH_SHORT).show());
 
         // update sticker counts, Attach a listener to read the data at our posts reference
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -343,12 +334,7 @@ public class MessageActivity extends AppCompatActivity {
                         Map<String, Long> currentCount = (Map<String, Long>) next.child("stickerCountMap").getValue();
                         if (currentCount != null)
                             currentCount.put(chosenImageId + "", currentCount.getOrDefault(chosenImageId + "", 0L) + 1L);
-                        databaseReference.child("users").child(Objects.requireNonNull(next.getKey())).child("stickerCountMap").setValue(currentCount).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MessageActivity.this, "Unable to send sticker. Please try again later", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        databaseReference.child("users").child(Objects.requireNonNull(next.getKey())).child("stickerCountMap").setValue(currentCount).addOnFailureListener(e -> Toast.makeText(MessageActivity.this, "Unable to send sticker. Please try again later", Toast.LENGTH_SHORT).show());
 
                     }
                 }

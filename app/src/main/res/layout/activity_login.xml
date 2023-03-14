@@ -1,0 +1,192 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    tools:context=".finalProject.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/login_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="TODO" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/signup_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/fuzzybubblesbold"
+                android:text="LogIN"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:src="@drawable/whlogo"
+                android:contentDescription="TODO" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailET"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="Enter your email"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_mail_fill"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_phone_number_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textWebEmailAddress"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/emailET"
+                android:hint="Enter your password"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/black"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_pwd_fill"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/login_password_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RelativeLayout
+                android:id="@+id/forget_password_block"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/login_password"
+                android:layout_marginTop="10dp">
+
+<!--                                    android:onClick="callForgetPassword"
+-->
+                <Button
+                    android:id="@+id/forget_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="#00950404"
+                    android:text="Forget password"
+                    android:textColor="@color/black" />
+
+            </RelativeLayout>
+
+<!--                android:onClick="letTheUserLoggedIn"
+-->
+            <Button
+                android:id="@+id/letTheUserLogIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/forget_password_block"
+                android:layout_marginTop="10dp"
+                android:text="Login"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/google_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@id/googleSignInBtn"
+                android:layout_alignBottom="@id/googleSignInBtn"
+                android:layout_toStartOf="@id/googleSignInBtn"
+                android:padding="5dp"
+                android:src="@drawable/google_icon"
+                android:contentDescription="TODO" />
+
+            <Button
+                android:id="@+id/googleSignInBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/letTheUserLogIn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="#00950404"
+                android:buttonTint="@color/black"
+                android:text="Sign In with Google"
+                android:textColor="@color/black" />
+
+<!--                            android:onClick="callSignUpFromLogin"
+-->
+            <Button
+                android:id="@+id/SignUpBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/googleSignInBtn"
+                android:layout_centerHorizontal="true"
+                android:background="#00000000"
+                android:text="Create Account"
+                android:textColor="@color/black" />
+
+            <RelativeLayout
+                android:id="@+id/login_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:elevation="8dp"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
