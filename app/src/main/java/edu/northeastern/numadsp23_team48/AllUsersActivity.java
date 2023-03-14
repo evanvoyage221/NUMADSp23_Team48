@@ -17,7 +17,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
@@ -69,10 +68,6 @@ public class AllUsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
         setContentView(R.layout.activity_all_users);
-
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         userKey = getIntent().getExtras().getString("userKey");
         currentUserName = getIntent().getExtras().getString("currentUserName");
@@ -190,7 +185,7 @@ public class AllUsersActivity extends AppCompatActivity {
             if (currentStatus.equalsIgnoreCase("unread")) {
                 String sender = snapshot.child("sender").getValue(String.class);
                 try {
-                    int image_id = snapshot.child("imageID").getValue(int.class);
+                    int image_id = Objects.requireNonNull(snapshot.child("imageID").getValue(int.class));
                     sendNotification(image_id, sender);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
@@ -201,16 +196,14 @@ public class AllUsersActivity extends AppCompatActivity {
         }
     }
     public void createNotificationChannel(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Sticker_notify";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel =
-                    new NotificationChannel(channelId, name, importance);
-            channel.enableLights(true);
-            channel.setLightColor(Color.GREEN);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        CharSequence name = "Sticker_notify";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel =
+                new NotificationChannel(channelId, name, importance);
+        channel.enableLights(true);
+        channel.setLightColor(Color.GREEN);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
 
     }
 
