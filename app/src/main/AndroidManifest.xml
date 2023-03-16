@@ -23,6 +23,9 @@
         <activity
             android:name=".finalProject.LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".finalProject.HomepageActivity"
+            android:exported="false" />
       <activity
             android:name=".GroupProjectActivity"
             android:exported="false" />
