@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
     private void sendUserToMainActivity() {
 
         progressBar.setVisibility(View.GONE);
-        startActivity(new Intent(LoginActivity.this, ExploreActivity.class));
+        startActivity(new Intent(LoginActivity.this, HomepageActivity.class));
         finish();
     }
 
