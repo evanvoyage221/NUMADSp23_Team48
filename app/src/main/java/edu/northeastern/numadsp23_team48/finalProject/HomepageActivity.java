@@ -8,10 +8,12 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import edu.northeastern.numadsp23_team48.R;
 
 public class HomepageActivity extends AppCompatActivity {
+    private CardView findDoctor;
     private Switch logout;
     Boolean switchBoolean = false;
 
@@ -21,6 +23,7 @@ public class HomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         logout = findViewById(R.id.switch_logout);
+        findDoctor = findViewById(R.id.cardFindDoctor);
         logout.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -30,6 +33,12 @@ public class HomepageActivity extends AppCompatActivity {
                     //TODO: CLEAN LOGIN INFO
                     startActivity(new Intent(HomepageActivity.this, LoginActivity.class));
                 }
+            }
+        });
+        findDoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomepageActivity.this, FindDoctorActivity.class));
             }
         });
     }
