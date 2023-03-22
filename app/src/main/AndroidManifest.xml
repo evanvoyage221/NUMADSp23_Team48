@@ -15,6 +15,12 @@
         android:theme="@style/Theme.NUMADSp23_team48"
         tools:targetApi="31">
         <activity
+            android:name=".finalProject.DoctorDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".finalProject.FindDoctorActivity"
+            android:exported="true" />
+        <activity
             android:name=".finalProject.ForgetPasswordActivity"
             android:exported="false" />
         <activity
@@ -22,11 +28,9 @@
             android:exported="false" />
         <activity
             android:name=".finalProject.LoginActivity"
-            android:exported="false" />
-
-<!--      <activity-->
-<!--            android:name=".finalProject.GroupProjectActivity"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".finalProject.GroupProjectActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".finalProject.HomepageActivity"
             android:exported="true" />
