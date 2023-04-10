@@ -15,7 +15,7 @@ public class FindDoctorActivity extends AppCompatActivity {
     private CardView dentist;
     private CardView surgeon;
     private CardView cardiologists;
-    private CardView others;
+    private CardView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class FindDoctorActivity extends AppCompatActivity {
         dentist = findViewById(R.id.cardFDDentist);
         surgeon = findViewById(R.id.cardFDSurgeon);
         cardiologists = findViewById(R.id.cardFDCardiologists);
-        others = findViewById(R.id.cardFDOthers);
+        back = findViewById(R.id.cardFDBack);
         familyPhysician.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,12 +67,10 @@ public class FindDoctorActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
-        others.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(FindDoctorActivity.this, DoctorDetailsActivity.class);
-                it.putExtra("title", "Others");
-                startActivity(it);
+                startActivity(new Intent(FindDoctorActivity.this, HomepageActivity.class));
             }
         });
     }
