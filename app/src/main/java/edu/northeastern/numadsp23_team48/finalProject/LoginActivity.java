@@ -36,6 +36,10 @@ import java.util.Objects;
 import edu.northeastern.numadsp23_team48.MainActivity;
 import edu.northeastern.numadsp23_team48.R;
 
+
+// Note: This Activity use cloud firestore to store user data instead of realtime database
+// User data is stored in the collection "users" including,
+// user's name, email, profileImage, uid and status
 public class LoginActivity extends AppCompatActivity {
 
     /**
@@ -47,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private RelativeLayout progressBar;
     private ImageView backBtn;
 
-    private static final int RC_SIGN_IN = 1;
+    private static final int RC_SIGN_IN = 53;
     GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> signInLauncher;
 
@@ -77,23 +81,11 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
-
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-//        signInLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
-//            try {
-//                // Google Sign In was successful, authenticate with Firebase
-//                GoogleSignInAccount account = task.getResult(ApiException.class);
-//                assert account != null;
-//                firebaseAuthWithGoogle(account.getIdToken());
-//            } catch (ApiException e) {
-//                // Google Sign In failed, update UI appropriately
-//                Log.w("TAG", "Google sign in failed", e);
-//                // ...
-//            }
-//        });
 
         signInLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {
@@ -143,11 +135,14 @@ public class LoginActivity extends AppCompatActivity {
                     FirebaseUser user = auth.getCurrentUser();
 
                     assert user != null;
-                    if (!user.isEmailVerified()) {
-                        Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                    if (user.isEmailVerified()) {
+                        sendUserToMainActivity();
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        auth.signOut();
+                        Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT)
+                                .show();
                     }
-
-                    sendUserToMainActivity();
 
                 } else {
                     String exception = "Error: " + Objects.requireNonNull(task.getException()).getMessage();
@@ -165,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
     private void sendUserToMainActivity() {
 
         progressBar.setVisibility(View.GONE);
+//        TODO: change the homepage activity to the main functional activity
         startActivity(new Intent(LoginActivity.this, HomepageActivity.class));
         finish();
     }
@@ -189,14 +185,15 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        auth.signInWithCredential(credential).addOnCompleteListener(LoginActivity.this, task -> {
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 // Sign in success, update UI with the signed-in user's information
                 FirebaseUser user = auth.getCurrentUser();
@@ -205,8 +202,10 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // If sign in fails, display a message to the user.
                 Log.w("TAG", "signInWithCredential:failure", task.getException());
+                String exception = "Error: " + Objects.requireNonNull(task.getException()).getMessage();
+                Toast.makeText(LoginActivity.this, exception, Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             }
-
         });
     }
 
@@ -223,7 +222,8 @@ public class LoginActivity extends AppCompatActivity {
         map.put("uid", user.getUid());
         map.put("status", " ");
 
-        FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).set(map).addOnCompleteListener(task -> {
+        FirebaseFirestore.getInstance().collection("Users")
+                .document(user.getUid()).set(map).addOnCompleteListener(task -> {
 
             if (task.isSuccessful()) {
                 progressBar.setVisibility(View.GONE);
@@ -231,7 +231,10 @@ public class LoginActivity extends AppCompatActivity {
 
             } else {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(LoginActivity.this, "Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,
+                        "Error: " + Objects.requireNonNull(task.getException()).getMessage(),
+                        Toast.LENGTH_SHORT)
+                        .show();
             }
         });
     }
