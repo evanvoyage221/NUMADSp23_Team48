@@ -1,33 +1,42 @@
 {
   "project_info": {
-    "project_number": "708330768223",
-    "project_id": "team48-deb9f",
-    "storage_bucket": "team48-deb9f.appspot.com"
+    "project_number": "942190032581",
+    "firebase_url": "https://team48-group-project-default-rtdb.firebaseio.com",
+    "project_id": "team48-group-project",
+    "storage_bucket": "team48-group-project.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:708330768223:android:c95027a8d7d93b9f0a58ea",
+        "mobilesdk_app_id": "1:942190032581:android:43b68e409ceff1d945e2ac",
         "android_client_info": {
           "package_name": "edu.northeastern.numadsp23_team48"
         }
       },
       "oauth_client": [
         {
-          "client_id": "708330768223-4pl41u4ifbktg24v7cm06la60ccv6mj5.apps.googleusercontent.com",
+          "client_id": "942190032581-oqch8k0kv0d13fgntt5clfikj8k4fopi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.northeastern.numadsp23_team48",
+            "certificate_hash": "6418ae6139aec0b8a6f50123f04ac89c44b279dc"
+          }
+        },
+        {
+          "client_id": "942190032581-u4v6b7mk53l31faa31kovkqjbf1cgra2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB2Vu54dwqv5Yo9dqJr5PQNRw2oSemmaXI"
+          "current_key": "AIzaSyBs0-RQRh09CXfu-EDQAx3dmIabe8n99x0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "708330768223-4pl41u4ifbktg24v7cm06la60ccv6mj5.apps.googleusercontent.com",
+              "client_id": "942190032581-03e46a63a80dcc7el5uqrsudt6ps6t99.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
