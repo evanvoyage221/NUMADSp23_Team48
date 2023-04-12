@@ -6,6 +6,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import edu.northeastern.numadsp23_team48.finalProject.HomepageActivity;
 import edu.northeastern.numadsp23_team48.finalProject.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,15 +40,17 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HwA7.class);
         startActivity(intent);
     }
-    
-     public void goToGroupProjectActivity(){
-         Intent intent = new Intent(this, LoginActivity.class);
-         startActivity(intent);
-     }
 
-//    public void goToGroupProjectActivity(){
-//        Intent intent = new Intent(this, GroupProjectActivity.class);
-//
-//        startActivity(intent);
-//    }
+    public void goToGroupProjectActivity() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            // User is already signed in, start the main activity
+            Intent intent = new Intent(this, HomepageActivity.class);
+            startActivity(intent);
+        } else {
+            // User is not signed in, start the login activity
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
 }

@@ -149,7 +149,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, exception, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
-
             });
         });
         googleSignInBtn.setOnClickListener(v -> signIn());
@@ -160,7 +159,6 @@ public class LoginActivity extends AppCompatActivity {
     private void sendUserToMainActivity() {
 
         progressBar.setVisibility(View.GONE);
-//        TODO: change the homepage activity to the main functional activity
         startActivity(new Intent(LoginActivity.this, HomepageActivity.class));
         finish();
     }
@@ -194,19 +192,19 @@ public class LoginActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                // Sign in success, update UI with the signed-in user's information
-                FirebaseUser user = auth.getCurrentUser();
-                assert user != null;
-                updateUi(user);
-            } else {
-                // If sign in fails, display a message to the user.
-                Log.w("TAG", "signInWithCredential:failure", task.getException());
-                String exception = "Error: " + Objects.requireNonNull(task.getException()).getMessage();
-                Toast.makeText(LoginActivity.this, exception, Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = auth.getCurrentUser();
+                        assert user != null;
+                        updateUi(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("TAG", "signInWithCredential:failure", task.getException());
+                        String exception = "Error: " + Objects.requireNonNull(task.getException()).getMessage();
+                        Toast.makeText(LoginActivity.this, exception, Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void updateUi(FirebaseUser user) {
@@ -221,22 +219,26 @@ public class LoginActivity extends AppCompatActivity {
         map.put("profileImage", String.valueOf(account.getPhotoUrl()));
         map.put("uid", user.getUid());
         map.put("status", " ");
+//        TODO: maybe other information can be added
 
-        FirebaseFirestore.getInstance().collection("Users")
-                .document(user.getUid()).set(map).addOnCompleteListener(task -> {
 
-            if (task.isSuccessful()) {
-                progressBar.setVisibility(View.GONE);
-                sendUserToMainActivity();
+        FirebaseFirestore.getInstance()
+                .collection("Users")
+                .document(user.getUid())
+                .set(map)
+                .addOnCompleteListener(task -> {
 
-            } else {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(LoginActivity.this,
-                        "Error: " + Objects.requireNonNull(task.getException()).getMessage(),
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+                    if (task.isSuccessful()) {
+                        progressBar.setVisibility(View.GONE);
+                        sendUserToMainActivity();
+
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(LoginActivity.this,
+                                        "Error: " + Objects.requireNonNull(task.getException())
+                                                .getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 }

@@ -137,7 +137,7 @@ public class CreateAccountActivity extends Activity {
 
             if (task.isSuccessful()) {
                 progressBar.setVisibility(View.GONE);
-                startActivity(new Intent(getApplicationContext(), ExploreActivity.class));
+                startActivity(new Intent(getApplicationContext(), HomepageActivity.class));
                 finish();
 
             } else {
