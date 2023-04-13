@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
         map.put("email", account.getEmail());
         map.put("profileImage", String.valueOf(account.getPhotoUrl()));
         map.put("uid", user.getUid());
-        map.put("status", " ");
+        map.put("status", "Be active, happy and enjoy the app");
 //        TODO: maybe other information can be added
 
 
