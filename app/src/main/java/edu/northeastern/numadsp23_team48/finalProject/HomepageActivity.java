@@ -2,6 +2,7 @@ package edu.northeastern.numadsp23_team48.finalProject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +22,7 @@ import edu.northeastern.numadsp23_team48.R;
 public class HomepageActivity extends AppCompatActivity {
     private CardView findDoctor;
     private ImageButton signOutBtn, profileBtn;
-    private TextView toolbarNameTv, sayHiTV;
+    private TextView sayHiTV;
     private FirebaseFirestore db;
     DocumentReference userRef;
     private FirebaseUser user;
@@ -39,13 +40,12 @@ public class HomepageActivity extends AppCompatActivity {
         clickListener();
 
     }
-
     private void clickListener() {
 //        sign out button listener
         signOutBtn.setOnClickListener(view -> {
-            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth = FirebaseAuth.getInstance();
 //             TODO: CLEAN LOGIN INFO
-            FirebaseAuth.getInstance().signOut();
+            // FirebaseAuth.getInstance().signOut();
 
 //             sign out for signInWithEmailAndPassword
             if (auth.getCurrentUser() != null) {
@@ -79,7 +79,6 @@ public class HomepageActivity extends AppCompatActivity {
         signOutBtn = findViewById(R.id.signOutBtn);
         profileBtn = findViewById(R.id.profileBtn);
         findDoctor = findViewById(R.id.cardFindDoctor);
-        toolbarNameTv = findViewById(R.id.toolbarNameTV);
         sayHiTV = findViewById(R.id.say_hi);
 
         auth = FirebaseAuth.getInstance();
@@ -96,7 +95,6 @@ public class HomepageActivity extends AppCompatActivity {
             if (value != null && value.exists()) {
                 String name = value.getString("name");
 //                Log.d("Tag_0", "name: " + name);
-                toolbarNameTv.setText(name);
                 sayHiTV.setText("Welcome, " + name);
             }
         });

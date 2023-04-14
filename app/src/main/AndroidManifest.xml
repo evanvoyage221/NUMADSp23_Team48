@@ -25,7 +25,7 @@
             android:exported="false" />
         <activity
             android:name=".finalProject.FindDoctorActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".finalProject.ForgetPasswordActivity"
             android:exported="false" />
