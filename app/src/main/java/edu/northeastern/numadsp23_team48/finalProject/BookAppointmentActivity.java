@@ -11,19 +11,32 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import edu.northeastern.numadsp23_team48.R;
 
 public class BookAppointmentActivity extends AppCompatActivity {
-    EditText ed1, ed2, ed3, ed4;
-    TextView tv;
+    private EditText ed1, ed2, ed3, ed4;
+    private TextView tv;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
     private Button dateButton, timeButton, btnBook, btnBack;
+    private ImageButton signOutBtn, profileBtn;
+    private FirebaseAuth auth;
+    private String date;
+    private String time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +52,27 @@ public class BookAppointmentActivity extends AppCompatActivity {
         timeButton = findViewById(R.id.buttonAppTime);
         btnBook = findViewById(R.id.buttonBookAppointment);
         btnBack = findViewById(R.id.buttonAppBack);
+        signOutBtn = findViewById(R.id.signOutBtn);
+        profileBtn = findViewById(R.id.profileBtn);
+        auth = FirebaseAuth.getInstance();
+        signOutBtn.setOnClickListener(view -> {
+
+            if (auth.getCurrentUser() != null) {
+                auth.signOut();
+            }
+
+//             navigate to login activity and clear activity stack
+            Intent intent = new Intent(BookAppointmentActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
+//        profile button listener
+        profileBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(BookAppointmentActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
 
         ed1.setKeyListener(null);
         ed2.setKeyListener(null);
@@ -56,7 +90,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
         ed1.setText(fullname);
         ed2.setText(address);
         ed3.setText(contact);
-        ed4.setText("Cons Fees:" + fees + "/-");
+        ed4.setText(fees + "/-");
 
         initDatePicker();
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -84,10 +118,34 @@ public class BookAppointmentActivity extends AppCompatActivity {
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BookAppointmentActivity.this, FindDoctorActivity.class));
+                startActivity(new Intent(BookAppointmentActivity.this, HomepageActivity.class));
+
+                FirebaseUser user = auth.getCurrentUser();
+                auth.updateCurrentUser(user).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        addUserAppointment(user, fullname, address, contact, fees, date, time);
+                        Toast.makeText(BookAppointmentActivity.this, "Your appointment has been booked successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String exception = Objects.requireNonNull(task.getException()).getMessage();
+                        Toast.makeText(BookAppointmentActivity.this, "Error: " + exception, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
+    }
+    private void addUserAppointment(FirebaseUser user, String name, String address, String contact, String fee, String date, String time) {
+        Map<String, Object> appointment = new HashMap<>();
+
+        appointment.put("name", name);
+        appointment.put("hospital", address);
+        appointment.put("contact", contact);
+        appointment.put("fees", fee);
+        appointment.put("date", date);
+        appointment.put("time", time);
+
+        String id = FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).collection("appointments").document().getId();
+        FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).collection("appointments").document(id).set(appointment);
     }
 
     private void initDatePicker() {
@@ -96,6 +154,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month+=1;
                 dateButton.setText(month+"/"+dayOfMonth+"/"+year);
+                date = String.valueOf(month) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
             }
         };
         Calendar cal = Calendar.getInstance();
@@ -113,6 +172,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 timeButton.setText(hourOfDay+":"+minute);
+                time = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
             }
         };
         Calendar cal = Calendar.getInstance();

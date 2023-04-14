@@ -41,7 +41,7 @@ import edu.northeastern.numadsp23_team48.R;
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageButton signOutBtn, profileBtn;
-    private TextView toolbarNameTv, nameTv, statusTv;
+    private TextView nameTv, statusTv;
     private FirebaseFirestore db;
     DocumentReference userRef;
     private FirebaseUser user;
@@ -89,7 +89,6 @@ public class ProfileActivity extends AppCompatActivity {
     private void init() {
         signOutBtn = findViewById(R.id.signOutBtn);
         profileBtn = findViewById(R.id.profileBtn);
-        toolbarNameTv = findViewById(R.id.toolbarNameTV);
         profileImage = findViewById(R.id.profileImage);
         editProfileBtn = findViewById(R.id.edit_profileImage);
         nameTv = findViewById(R.id.nameTv);
@@ -114,11 +113,9 @@ public class ProfileActivity extends AppCompatActivity {
             if (value != null && value.exists()) {
                 String name = value.getString("name");
                 String status = value.getString("status");
-                toolbarNameTv.setText(name);
                 final String profileURL = value.getString("profileImage");
 
                 nameTv.setText(name);
-                toolbarNameTv.setText(name);
                 assert status != null;
                 if (!status.isEmpty() && !status.equals(" "))
                     statusTv.setText(status);
