@@ -21,6 +21,10 @@ import edu.northeastern.numadsp23_team48.R;
 
 public class HomepageActivity extends AppCompatActivity {
     private CardView findDoctor;
+
+    private CardView orderDetails;
+
+    private CardView buyMedicine;
     private ImageButton signOutBtn, profileBtn;
     private TextView sayHiTV;
     private FirebaseFirestore db;
@@ -72,6 +76,20 @@ public class HomepageActivity extends AppCompatActivity {
                 startActivity(new Intent(HomepageActivity.this, FindDoctorActivity.class));
             }
         });
+
+        orderDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomepageActivity.this, OrderDetails.class));
+            }
+        });
+
+        buyMedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomepageActivity.this, BuyMedicineActivity.class));
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -79,6 +97,8 @@ public class HomepageActivity extends AppCompatActivity {
         signOutBtn = findViewById(R.id.signOutBtn);
         profileBtn = findViewById(R.id.profileBtn);
         findDoctor = findViewById(R.id.cardFindDoctor);
+        orderDetails = findViewById(R.id.cardOrderDetails);
+        buyMedicine = findViewById(R.id.cardBuyMedicine);
         sayHiTV = findViewById(R.id.say_hi);
 
         auth = FirebaseAuth.getInstance();
@@ -99,5 +119,5 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
     }
-    
+
 }
