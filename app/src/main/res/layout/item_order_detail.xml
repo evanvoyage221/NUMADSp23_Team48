@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/whlogo"/>
+    <LinearLayout
+        android:layout_weight="@integer/material_motion_duration_medium_1"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ordered On Date XXX"
+            android:textColor="@color/daily"
+            android:textStyle="bold"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/order_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item"
+            android:textColor="@color/daily"
+            android:textStyle="bold"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Price"
+            android:textColor="@color/daily"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+</LinearLayout>
