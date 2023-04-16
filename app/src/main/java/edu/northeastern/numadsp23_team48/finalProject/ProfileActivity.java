@@ -1,5 +1,6 @@
 package edu.northeastern.numadsp23_team48.finalProject;
 
+import static edu.northeastern.numadsp23_team48.HwA6.TAG;
 import static edu.northeastern.numadsp23_team48.finalProject.utils.Constants.PREF_DIRECTORY;
 import static edu.northeastern.numadsp23_team48.finalProject.utils.Constants.PREF_NAME;
 import static edu.northeastern.numadsp23_team48.finalProject.utils.Constants.PREF_STORED;
@@ -14,29 +15,41 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.northeastern.numadsp23_team48.R;
+import edu.northeastern.numadsp23_team48.finalProject.adapter.AppointmentAdapter;
+import edu.northeastern.numadsp23_team48.finalProject.schema.AppointmentModel;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -48,6 +61,10 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private CircleImageView profileImage;
     private ImageButton editProfileBtn;
+    private RecyclerView recyclerView;
+    FirestoreRecyclerAdapter<AppointmentModel, AppointmentHolder> adapter;
+    ArrayList<AppointmentModel> appointmentList = new ArrayList<>();
+    AppointmentAdapter appointmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
         editProfileBtn = findViewById(R.id.edit_profileImage);
         nameTv = findViewById(R.id.nameTv);
         statusTv = findViewById(R.id.statusTV);
+        recyclerView = findViewById(R.id.recyclerview);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -100,7 +118,58 @@ public class ProfileActivity extends AppCompatActivity {
         userRef = db.collection("Users").document(user.getUid());
 
         loadUserInfo();
+
+        recyclerView.setItemAnimator(null);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+        loadUserAppointment();
+
+        appointmentAdapter = new AppointmentAdapter(this, appointmentList);
+        recyclerView.setAdapter(appointmentAdapter);
+
     }
+
+    private void loadUserAppointment() {
+
+        Query query = userRef.collection("appointments").orderBy("time", Query.Direction.DESCENDING);
+
+        FirestoreRecyclerOptions<AppointmentModel> options = new FirestoreRecyclerOptions.Builder<AppointmentModel>()
+                .setQuery(query, AppointmentModel.class)
+                .build();
+        // Get a reference to the user's appointments collection
+        CollectionReference appointmentsRef = userRef.collection("appointments");
+        // Query the appointments collection to retrieve all the documents
+        appointmentsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    // Create an AppointmentModel object with the appointment data
+                    AppointmentModel appointmentModel = document.toObject(AppointmentModel.class);
+                    appointmentList.add(appointmentModel);
+                }
+                // Call a method to display the appointmentList in a RecyclerView
+                displayAppointmentsInRecyclerView(appointmentList);
+            } else {
+                Log.d(TAG, "Error getting appointments: ", task.getException());
+            }
+        });
+
+    }
+
+    private void displayAppointmentsInRecyclerView(ArrayList<AppointmentModel> appointmentList) {
+        // Get a reference to the RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+
+        // Create a new instance of the RecyclerView adapter
+        AppointmentAdapter adapter = new AppointmentAdapter(this, appointmentList);
+
+        // Set the adapter on the RecyclerView
+        recyclerView.setAdapter(adapter);
+
+        // Set the layout manager on the RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
 
     private void loadUserInfo() {
 
@@ -141,7 +210,6 @@ public class ProfileActivity extends AppCompatActivity {
                             })
                             .timeout(6500)
                             .into(profileImage);
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -195,5 +263,29 @@ public class ProfileActivity extends AppCompatActivity {
         editor.putString(PREF_DIRECTORY, directory.getAbsolutePath());
         editor.apply();
     }
+
+    public static class AppointmentHolder extends RecyclerView.ViewHolder {
+        private TextView nameTextView, addressTextView, contactTextView, feeTextView, dateTextView, timeTextView;
+
+        public AppointmentHolder(TextView idTextView, View itemView) {
+            super(itemView);
+            nameTextView = itemView.findViewById(R.id.tvName);
+            addressTextView = itemView.findViewById(R.id.tvAddress);
+            contactTextView = itemView.findViewById(R.id.tvContact);
+            feeTextView = itemView.findViewById(R.id.tvFee);
+            dateTextView = itemView.findViewById(R.id.tvDate);
+            timeTextView = itemView.findViewById(R.id.tvTime);
+        }
+
+        public void bind(AppointmentModel appointment) {
+            nameTextView.setText(appointment.getName());
+            addressTextView.setText(appointment.getHospital());
+            contactTextView.setText(appointment.getContact());
+            feeTextView.setText(appointment.getFees());
+            dateTextView.setText(appointment.getDate());
+            timeTextView.setText(appointment.getTime());
+        }
+    }
+
 
 }
