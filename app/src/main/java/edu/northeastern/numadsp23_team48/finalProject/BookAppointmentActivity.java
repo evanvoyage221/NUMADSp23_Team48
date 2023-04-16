@@ -1,20 +1,18 @@
 package edu.northeastern.numadsp23_team48.finalProject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +36,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
     private String date;
     private String time;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,47 +92,31 @@ public class BookAppointmentActivity extends AppCompatActivity {
         ed4.setText(fees + "/-");
 
         initDatePicker();
-        dateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialog.show();
-            }
-        });
+        dateButton.setOnClickListener(v -> datePickerDialog.show());
 
         initTimePicker();
-        timeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timePickerDialog.show();
-            }
-        });
+        timeButton.setOnClickListener(v -> timePickerDialog.show());
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(BookAppointmentActivity.this, FindDoctorActivity.class));
-            }
-        });
+        btnBack.setOnClickListener(v -> startActivity(new Intent(BookAppointmentActivity.this, FindDoctorActivity.class)));
 
-        btnBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(BookAppointmentActivity.this, HomepageActivity.class));
+        btnBook.setOnClickListener(v -> {
+            startActivity(new Intent(BookAppointmentActivity.this, HomepageActivity.class));
 
-                FirebaseUser user = auth.getCurrentUser();
-                auth.updateCurrentUser(user).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        addUserAppointment(user, fullname, address, contact, fees, date, time);
-                        Toast.makeText(BookAppointmentActivity.this, "Your appointment has been booked successfully!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        String exception = Objects.requireNonNull(task.getException()).getMessage();
-                        Toast.makeText(BookAppointmentActivity.this, "Error: " + exception, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+            FirebaseUser user = auth.getCurrentUser();
+            assert user != null;
+            auth.updateCurrentUser(user).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    addUserAppointment(user, fullname, address, contact, fees, date, time);
+                    Toast.makeText(BookAppointmentActivity.this, "Your appointment has been booked successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String exception = Objects.requireNonNull(task.getException()).getMessage();
+                    Toast.makeText(BookAppointmentActivity.this, "Error: " + exception, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
     }
+
     private void addUserAppointment(FirebaseUser user, String name, String address, String contact, String fee, String date, String time) {
         Map<String, Object> appointment = new HashMap<>();
 
@@ -149,13 +132,10 @@ public class BookAppointmentActivity extends AppCompatActivity {
     }
 
     private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month+=1;
-                dateButton.setText(month+"/"+dayOfMonth+"/"+year);
-                date = String.valueOf(month) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
-            }
+        @SuppressLint("SetTextI18n") DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, dayOfMonth) -> {
+            month += 1;
+            dateButton.setText(month + "/" + dayOfMonth + "/" + year);
+            date = month + "/" + dayOfMonth + "/" + year;
         };
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -164,22 +144,19 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
         int style = AlertDialog.THEME_HOLO_DARK;
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-        datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis()+86400000);
+        datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis() + 86400000);
     }
 
     private void initTimePicker() {
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                timeButton.setText(hourOfDay+":"+minute);
-                time = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
-            }
+        TimePickerDialog.OnTimeSetListener timeSetListener = (view, hourOfDay, minute) -> {
+            timeButton.setText(hourOfDay + ":" + minute);
+            time = hourOfDay + ":" + minute;
         };
         Calendar cal = Calendar.getInstance();
         int hrs = cal.get(Calendar.HOUR);
         int mins = cal.get(Calendar.MINUTE);
 
         int style = AlertDialog.THEME_HOLO_DARK;
-        timePickerDialog = new TimePickerDialog(this,style,timeSetListener,hrs, mins, true);
+        timePickerDialog = new TimePickerDialog(this, style, timeSetListener, hrs, mins, true);
     }
 }
