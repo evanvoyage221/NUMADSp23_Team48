@@ -46,8 +46,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="TODO"
-                android:padding="5dp"
-                android:src="@drawable/whlogo" />
+                android:src="@drawable/whlogo_red" />
         </RelativeLayout>
 
         <RelativeLayout

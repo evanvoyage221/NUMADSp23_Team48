@@ -25,6 +25,8 @@ public class HomepageActivity extends AppCompatActivity {
     private CardView orderDetails;
 
     private CardView buyMedicine;
+
+    private CardView labTest;
     private ImageButton signOutBtn, profileBtn;
     private TextView sayHiTV;
     private FirebaseFirestore db;
@@ -40,7 +42,7 @@ public class HomepageActivity extends AppCompatActivity {
 //        find component by id and get current user
         init();
 
-//        sign out / profile / findDoctor button listener
+//        sign out / profile / findDoctor / buyMedicine / orderDetails / labTest button listener
         clickListener();
 
     }
@@ -90,6 +92,11 @@ public class HomepageActivity extends AppCompatActivity {
                 startActivity(new Intent(HomepageActivity.this, BuyMedicineActivity.class));
             }
         });
+
+        labTest.setOnClickListener(view -> {
+            Intent intent = new Intent(HomepageActivity.this, LabTestActivity.class);
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -99,6 +106,7 @@ public class HomepageActivity extends AppCompatActivity {
         findDoctor = findViewById(R.id.cardFindDoctor);
         orderDetails = findViewById(R.id.cardOrderDetails);
         buyMedicine = findViewById(R.id.cardBuyMedicine);
+        labTest = findViewById(R.id.cardLabTest);
         sayHiTV = findViewById(R.id.say_hi);
 
         auth = FirebaseAuth.getInstance();

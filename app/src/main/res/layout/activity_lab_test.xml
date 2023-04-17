@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".finalProject.DoctorDetailsActivity">
+    tools:context=".finalProject.LabTestActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -60,22 +61,22 @@
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
-        android:id="@+id/title_doctor_detail"
+        android:id="@+id/title_lab_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar">
 
         <TextView
-            android:id="@+id/textViewDDTitle"
+            android:id="@+id/signup_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="30dp"
-            android:text="Default Text"
+            android:text="Lab Test"
             android:fontFamily="@font/fuzzybubblesbold"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="28sp" />
 
         <ImageView
             android:id="@+id/icon"
@@ -85,51 +86,35 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/fp_find_doc" />
+            android:src="@drawable/fp_lab_test" />
     </RelativeLayout>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/icon_app"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:src="@drawable/whlogo"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textViewDDTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Default Text"-->
-<!--        android:textColor="@color/fog_red"-->
-<!--        android:textSize="25sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/icon_app"-->
-<!--        app:layout_constraintVertical_bias="0.01"/>-->
-
     <ListView
-        android:id="@+id/listViewDD"
+        android:id="@+id/lab_test_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/title_lab_test"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="100dp"
-        android:layout_below="@+id/title_doctor_detail"/>
+        android:layout_marginBottom="100dp" />
 
     <Button
-        android:id="@+id/buttonDDBack"
+        android:id="@+id/button_go_to_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="GO TO CART" />
+
+    <Button
+        android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="120dp"
         android:layout_marginBottom="30dp"
+        android:layout_toRightOf="@+id/button_go_to_cart"
         android:text="BACK" />
-
 </RelativeLayout>

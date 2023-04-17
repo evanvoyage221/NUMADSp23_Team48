@@ -4,4 +4,40 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/fuzzybubblesbold" />
+    <font
+        android:font="@font/opensansregular"
+        android:fontStyle="normal"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/opensansbold"
+        android:fontStyle="normal"
+        android:fontWeight="700" />
+    <font
+        android:font="@font/opensansitalic"
+        android:fontStyle="italic"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/opensanslight"
+        android:fontStyle="normal"
+        android:fontWeight="300" />
+    <font
+        android:font="@font/opensans_semi_condensed_regular"
+        android:fontStyle="italic"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/robotoregular"
+        android:fontStyle="italic"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/robotobold"
+        android:fontStyle="italic"
+        android:fontWeight="700" />
+    <font
+        android:font="@font/robotoitalic"
+        android:fontStyle="italic"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/robotolightitalic"
+        android:fontStyle="italic"
+        android:fontWeight="300" />
 </font-family>
