@@ -84,8 +84,8 @@
             android:layout_marginEnd="20dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:src="@drawable/whlogo" />
+            android:padding="10dp"
+            android:src="@drawable/fp_find_doc" />
     </RelativeLayout>
 
 <!--    <ImageView-->

@@ -41,8 +41,7 @@
                 android:layout_height="150dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:padding="5dp"
-                android:src="@drawable/whlogo"
+                android:src="@drawable/whlogo_red"
                 android:contentDescription="TODO" />
         </RelativeLayout>
 

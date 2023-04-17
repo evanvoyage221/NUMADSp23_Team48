@@ -89,8 +89,8 @@
                 android:layout_marginEnd="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:padding="5dp"
-                android:src="@drawable/whlogo" />
+                android:padding="10dp"
+                android:src="@drawable/fp_find_doc" />
         </RelativeLayout>
 
         <GridLayout
@@ -123,7 +123,7 @@
                     <ImageView
                         android:layout_width="126dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/family_physicians" />
+                        android:src="@drawable/fp_family" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/dietician" />
+                        android:src="@drawable/fp_diet_2" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -187,7 +187,8 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/dentist" />
+                        android:padding="2dp"
+                        android:src="@drawable/fp_dentist" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -219,7 +220,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/surgeon" />
+                        android:src="@drawable/fp_surgeon_2" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -251,7 +252,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/cardiologists" />
+                        android:src="@drawable/fp_cardio" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

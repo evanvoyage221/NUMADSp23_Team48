@@ -20,7 +20,8 @@
             android:id="@+id/medicine_imageview"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/baseline_healing_24" />
+            android:padding="30dp"
+            android:src="@drawable/fp_drug_2" />
 
         <TextView
             android:id="@+id/medicine_price"
