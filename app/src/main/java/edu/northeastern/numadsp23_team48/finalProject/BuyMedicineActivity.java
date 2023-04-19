@@ -40,6 +40,7 @@ public class BuyMedicineActivity extends AppCompatActivity {
     MedicineAdapter adapter;
     RecyclerView recyclerView;
     Button placeOrder;
+    Button btnBack;
     private FirebaseAuth auth;
 
 
@@ -49,6 +50,7 @@ public class BuyMedicineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_medicine);
         placeOrder = findViewById(R.id.btn_buy_medicine);
+        btnBack = findViewById(R.id.btn_back);
         auth = FirebaseAuth.getInstance();
 
         adapter = new MedicineAdapter(medicineList);
@@ -78,7 +80,12 @@ public class BuyMedicineActivity extends AppCompatActivity {
             }
         });
 
-
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BuyMedicineActivity.this, HomepageActivity.class));
+            }
+        });
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
