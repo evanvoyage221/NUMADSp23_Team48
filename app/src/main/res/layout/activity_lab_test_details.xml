@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".finalProject.LabTestActivity">
+    tools:context=".finalProject.LabTestDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -58,6 +58,7 @@
                 android:contentDescription="@null" />
 
         </RelativeLayout>
+
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
@@ -72,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="30dp"
-            android:text="Lab Test"
+            android:text="Test Details"
             android:fontFamily="@font/fuzzybubblesbold"
             android:textAllCaps="true"
             android:textColor="@color/black"
@@ -89,31 +90,57 @@
             android:src="@drawable/fp_lab_test" />
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lab_test_list"
+    <EditText
+        android:id="@+id/edit_text_multiLine"
+        android:layout_below="@+id/title_lab_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_lab_test"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="100dp" />
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="160dp"
+        android:inputType="textMultiLine"
+        android:text="Details info"
+        android:lineSpacingMultiplier="1.5"
+        android:gravity="start|top"
+        android:padding="10dp"
+        />
 
-<!--    <Button-->
-<!--        android:id="@+id/button_go_to_cart"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginStart="30dp"-->
-<!--        android:layout_marginBottom="30dp"-->
-<!--        android:text="GO TO ORDER" />-->
+    <TextView
+        android:id="@+id/text_view_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="120dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_add_to_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="40dp"
+        android:text="ADD TO ORDER" />
 
     <Button
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="280dp"
+        android:layout_marginLeft="115dp"
         android:layout_marginBottom="40dp"
+        android:layout_toRightOf="@+id/button_add_to_order"
         android:text="BACK" />
+
+
+
 </RelativeLayout>
