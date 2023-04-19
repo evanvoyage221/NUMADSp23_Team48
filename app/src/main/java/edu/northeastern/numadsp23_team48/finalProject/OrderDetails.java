@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.Timestamp;
@@ -36,6 +39,7 @@ public class OrderDetails extends AppCompatActivity {
     private RecyclerView recyclerViewOrders;
 
     private FirebaseAuth auth;
+    private ImageButton signOutBtn, profileBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class OrderDetails extends AppCompatActivity {
         OrderAdapter adapter = new OrderAdapter(orders);
         recyclerViewOrders.setAdapter(adapter);
 
+        signOutBtn = findViewById(R.id.signOutBtn);
+        profileBtn = findViewById(R.id.profileBtn);
 
         // Initialize the Firestore client
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -86,5 +92,25 @@ public class OrderDetails extends AppCompatActivity {
             System.out.println("User not authenticated!");
         }
 
+        signOutBtn.setOnClickListener(view -> {
+            // FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseAuth.getInstance().signOut();
+
+            if (auth.getCurrentUser() != null) {
+                auth.signOut();
+            }
+
+            // navigate to login activity and clear activity stack
+            Intent intent = new Intent(OrderDetails.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
+        // profile button listener
+        profileBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(OrderDetails.this, ProfileActivity.class);
+            startActivity(intent);
+        });
     }
 }
