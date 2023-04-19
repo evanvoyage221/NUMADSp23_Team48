@@ -7,48 +7,101 @@
     android:layout_height="match_parent"
     tools:context=".finalProject.BuyMedicineActivity">
 
-    <!--    <FrameLayout-->
-    <!--        android:id="@+id/btnCart"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_weight="3"-->
-    <!--        android:layout_height="match_parent">-->
-    <!--    </FrameLayout>-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white"
+        android:elevation="2dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        tools:ignore="MissingConstraints">
 
-    <!--    <com.nex3z.notificationbadge.NotificationBadge-->
-<!--        android:id="@+id/badge"-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        app:layout_constraintRight_toRightOf="@+id/cartButton"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        app:nbMaxTextLength="2"-->
-<!--        tools:ignore="MissingConstraints" />-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/profileBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_outline_person"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/toolbarNameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Wellness Hub 24*7"
+                android:textColor="@color/fog_red"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/signOutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_logout"
+                android:contentDescription="@null" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <Button
         android:id="@+id/btn_buy_medicine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@color/fog_red"
-        android:text="Click to place order"
+        android:text="Place Order"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.099" />
+        app:layout_constraintVertical_bias="0.951" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Back"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.951" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_buy_medicine"
-        android:layout_width="367dp"
-        android:layout_height="599dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="360dp"
+        android:layout_height="500dp"
+        android:layout_marginBottom="90dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_buy_medicine"
+        app:layout_constraintTop_toBottomOf="@+id/medicine_title"
+        app:layout_constraintVertical_bias="0.1"
         app:spanCount="2"
         tools:listitem="@layout/medicine_item_layout" />
 
@@ -57,11 +110,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please see doctor's prescription here"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_buy_medicine"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview_buy_medicine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

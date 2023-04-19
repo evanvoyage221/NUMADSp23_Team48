@@ -40,6 +40,7 @@ public class OrderDetails extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private ImageButton signOutBtn, profileBtn;
+    private Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class OrderDetails extends AppCompatActivity {
 
         signOutBtn = findViewById(R.id.signOutBtn);
         profileBtn = findViewById(R.id.profileBtn);
+        btnBack = findViewById(R.id.btn_back);
 
         // Initialize the Firestore client
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -110,6 +112,11 @@ public class OrderDetails extends AppCompatActivity {
         // profile button listener
         profileBtn.setOnClickListener(view -> {
             Intent intent = new Intent(OrderDetails.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(OrderDetails.this, HomepageActivity.class);
             startActivity(intent);
         });
     }
