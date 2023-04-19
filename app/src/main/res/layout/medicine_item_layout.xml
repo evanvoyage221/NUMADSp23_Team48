@@ -19,8 +19,8 @@
         <ImageView
             android:id="@+id/medicine_imageview"
             android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:padding="30dp"
+            android:layout_height="120dp"
+            android:padding="10dp"
             android:src="@drawable/fp_drug_2" />
 
         <TextView
