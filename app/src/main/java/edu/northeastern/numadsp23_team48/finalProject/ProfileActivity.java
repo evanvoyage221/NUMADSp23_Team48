@@ -110,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
         editProfileBtn = findViewById(R.id.edit_profileImage);
         nameTv = findViewById(R.id.nameTv);
         statusTv = findViewById(R.id.statusTV);
-        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.user_recycler_view);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -158,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void displayAppointmentsInRecyclerView(ArrayList<AppointmentModel> appointmentList) {
         // Get a reference to the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.user_recycler_view);
 
         // Create a new instance of the RecyclerView adapter
         AppointmentAdapter adapter = new AppointmentAdapter(this, appointmentList);
