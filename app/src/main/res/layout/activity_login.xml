@@ -110,8 +110,6 @@
                 android:layout_below="@id/login_password"
                 android:layout_marginTop="10dp">
 
-<!--                                    android:onClick="callForgetPassword"
--->
                 <Button
                     android:id="@+id/forget_password"
                     android:layout_width="wrap_content"

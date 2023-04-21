@@ -4,7 +4,9 @@ import static edu.northeastern.numadsp23_team48.finalProject.CreateAccountActivi
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn, googleSignInBtn;
     private RelativeLayout progressBar;
     private ImageView backBtn;
+    private SharedPreferences mSharedPreferences;
 
     private static final int RC_SIGN_IN = 53;
     GoogleSignInClient mGoogleSignInClient;
@@ -64,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         init();
+        String email = mSharedPreferences.getString("email", "");
+        Objects.requireNonNull(emailEt.getEditText()).setText(email);
 
         clickListener();
     }
@@ -80,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.login_progress_bar);
 
         auth = FirebaseAuth.getInstance();
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -135,13 +141,18 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     FirebaseUser user = auth.getCurrentUser();
-
                     assert user != null;
                     if (user.isEmailVerified()) {
+                        // Store the email/username in SharedPreferences
+                        String sharedEmail = emailEt.getEditText().getText().toString().trim();
+                        mSharedPreferences.edit().putString("email", sharedEmail).apply();
+
                         sendUserToMainActivity();
                     } else {
                         progressBar.setVisibility(View.GONE);
                         auth.signOut();
+//                        resend verification email
+                        user.sendEmailVerification();
                         Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT)
                                 .show();
                     }
@@ -237,8 +248,8 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this,
-                                        "Error: " + Objects.requireNonNull(task.getException())
-                                                .getMessage(), Toast.LENGTH_SHORT).show();
+                                "Error: " + Objects.requireNonNull(task.getException())
+                                        .getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
