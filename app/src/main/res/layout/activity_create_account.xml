@@ -37,7 +37,7 @@
                 android:text="Create Account"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="40sp" />
+                android:textSize="39sp" />
 
             <ImageView
                 android:id="@+id/icon"
@@ -46,6 +46,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="TODO"
+                android:padding="10dp"
                 android:src="@drawable/whlogo_red" />
         </RelativeLayout>
 

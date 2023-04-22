@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/whlogo"/>
+        android:src="@drawable/whlogo_red"/>
     <LinearLayout
         android:layout_weight="@integer/material_motion_duration_medium_1"
         android:layout_marginStart="10dp"
